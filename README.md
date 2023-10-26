@@ -25,7 +25,7 @@
 
 ## About The Project
 
-![Screen Shot](https://raw.githubusercontent.com/azavaxhuman/MarzbanInboundGenerator/main/Preview.png?token=GHSAT0AAAAAACEEXGLSLRIY3CFSG4TCJY4QZJ2QFOA)
+![Screen Shot](/Preview.png)
 
 با استفاده از این برگه به راحتی میتونید اینباند های موردنظر خودتون رو تولید کنید و در نهایت Json اونهارو تحویل بگیرید و در پنل هایی مثل مرزبان استفاده کنید.
 
