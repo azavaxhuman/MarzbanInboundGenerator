@@ -94,7 +94,6 @@ function protocolDetails() {
 
     var idsecurityDiv1 = document.getElementById('idsecurity')
 
-    // محتوای جدیدی که می‌خواهید جایگزین شود
     var newText1 = `<div id="idsecurity">
         <label for="security">Security</label>
         <select name="security" onchange="protocolDetails()">
@@ -105,7 +104,6 @@ function protocolDetails() {
         </select>
     </div>`
 
-    // جایگزینی محتوای عنصر با متن جدید
     idsecurityDiv1.innerHTML = newText1
     var securitySelect1 = document.querySelector('select[name="security"]')
     securitySelect1.value = security
@@ -123,7 +121,6 @@ function protocolDetails() {
             </select>
         </div>`
 
-      // جایگزینی محتوای عنصر با متن جدید
       idsecurityDiv2.innerHTML = newText2
       var securitySelect2 = document.querySelector('select[name="security"]')
       securitySelect2.value = security
@@ -131,7 +128,6 @@ function protocolDetails() {
   } else if (p == 2) {
     var idsecurityDiv4 = document.getElementById('idsecurity')
 
-    // محتوای جدیدی که می‌خواهید جایگزین شود
     var newText4 = `<div id="idsecurity">
         <label for="security">Security</label>
         <select name="security" onchange="protocolDetails()">
@@ -150,7 +146,6 @@ function protocolDetails() {
   } else {
     var idsecurityDiv3 = document.getElementById('idsecurity')
 
-    // محتوای جدیدی که می‌خواهید جایگزین شود
     var newText3 = `<div id="idsecurity">
         <label for="security">Security</label>
         <select name="security" onchange="protocolDetails()">
@@ -289,14 +284,14 @@ function addFields(event) {
   input1.value = `Host${fieldCounter + 1}`
   input1.id = `field1_${fieldCounter + 1}`
   input1.placeholder = 'فیلد اول'
-  input1.classList.add('field') // اضافه کردن کلاس "field" به المان
+  input1.classList.add('field') 
 
   const input2 = document.createElement('input')
   input2.type = 'text'
   input2.id = `field2_${fieldCounter + 1}`
   input2.value = 'Xray.com'
   input2.placeholder = 'فیلد دوم'
-  input2.classList.add('field') // اضافه کردن کلا
+  input2.classList.add('field') 
   const hr1 = document.createElement('hr')
   hr1.id = 'hr1'
   inputContainer.appendChild(input1)
@@ -343,9 +338,7 @@ function toggleRemoveButtonVisibility() {
 }
 addButton.addEventListener('click', addFields)
 removeButton.addEventListener('click', removeFields)
-// هنگامی که اطلاعات وارد شود، اطلاعات به طور مستقیم به آرایه افزوده می‌شوند
 
-/////////////////////////
 
 function DisplayBlock(objectblock, x) {
   x === '0'
@@ -394,7 +387,7 @@ function BuildTLS(
 
   if (h == 1 && fieldCounter > 0 && headerOnOff) {
     if (fields.length > 0) {
-      var result = '' // متغیر برای ذخیره نهایی
+      var result = '' 
       var justhosts = ''
       for (
         var k = fields.length + 1 - fields.length - 1;
@@ -404,10 +397,8 @@ function BuildTLS(
         var key = fields[k].value
         var value = fields[k + 1].value
 
-        // اضافه کردن مقدار template به متغیر result
         result += `"${key}": "${value}"`
         justhosts += `"${value}"`
-        // اگر نهایت رشته نیست، یک کاما و یک اینتر (یا خط جدید) اضافه کنید
         if (k < fields.length - 2) {
           result += ',\n'
           justhosts += ','
@@ -635,7 +626,7 @@ function BuildReality(pts, t, s, protocol, transmission,
   //حالتی که ریکوئست هدر فعال است
   if (h == 1 && fieldCounter > 0 && headerOnOff) {
     if (fields.length > 0) {
-      var result = '' // متغیر برای ذخیره نهایی
+      var result = '' 
       var justhosts = ''
       for (
         var k = fields.length + 1 - fields.length - 1;
@@ -645,10 +636,8 @@ function BuildReality(pts, t, s, protocol, transmission,
         var key = fields[k].value
         var value = fields[k + 1].value
 
-        // اضافه کردن مقدار template به متغیر result
         result += `"${key}": "${value}"`
         justhosts += `"${value}"`
-        // اگر نهایت رشته نیست، یک کاما و یک اینتر (یا خط جدید) اضافه کنید
         if (k < fields.length - 2) {
           result += ',\n'
           justhosts += ','
