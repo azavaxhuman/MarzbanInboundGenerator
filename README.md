@@ -13,7 +13,7 @@
     <a href="https://github.com/azavaxhuman/MarzbanInboundGenerator"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/azavaxhuman/MarzbanInboundGenerator">View Demo</a>
+    <a href="https://azavaxhuman.github.io/MarzbanInboundGenerator/">View Demo</a>
     .
     <a href="https://github.com/azavaxhuman/MarzbanInboundGenerator/issues">Report Bug</a>
     .
@@ -21,7 +21,6 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/azavaxhuman/MarzbanInboundGenerator?color=dark-green) ![Stargazers](https://img.shields.io/github/stars/azavaxhuman/MarzbanInboundGenerator?style=social) ![Issues](https://img.shields.io/github/issues/azavaxhuman/MarzbanInboundGenerator) ![License](https://img.shields.io/github/license/azavaxhuman/MarzbanInboundGenerator) 
 
 ## About The Project
 
