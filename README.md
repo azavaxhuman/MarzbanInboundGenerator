@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/azavaxhuman/MarzbanInboundGenerator">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Marzban Inbound Generator</h3>
@@ -32,7 +32,7 @@
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](https://github.com/azavaxhuman/MarzbanInboundGenerator/blob/main/LICENSE.md) for more information.
+Distributed under the GPL-3.0 License. See [LICENSE](https://github.com/azavaxhuman/MarzbanInboundGenerator/blob/main/LICENSE.md) for more information.
 
 ## Authors
 
