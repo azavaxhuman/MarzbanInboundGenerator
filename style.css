@@ -1,0 +1,334 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #1a202c;
+    height: auto;
+    padding-bottom: 80px;
+}
+
+#topcontents {
+    margin-top: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#bodypard {
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#content {
+    /* padding: 24px;
+    border-radius: 6px;
+    background: #1890ff; */
+    /* text-align: center; */
+    /* background: rgb(38, 0, 79); */
+    margin-top: 30px;
+    /* background: linear-gradient(163deg, rgb(51, 51, 51) 0%, rgb(31, 31, 31) 100%); */
+    padding: 40px;
+    margin-bottom: -30px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px #24242448;
+    width: 300px;
+    background-color: #2d3748;
+    z-index: 1;
+    height: auto;
+}
+
+#ctext {
+
+    z-index: 0;
+    border-radius: 6px;
+
+    /* text-align: center; */
+    /* background: rgb(38, 0, 79); */
+    margin-right: -70px;
+    margin-top: 50px;
+    /* background: linear-gradient(163deg, rgb(12, 36, 68) 0%, rgb(28, 17, 70) 100%); */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px #24242448;
+    width: 600px;
+    background-color: #749aec;
+    height: auto;
+
+}
+
+label {
+    font-weight: 600;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+
+
+input,
+select {
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    height: 40px;
+    font-size: medium;
+    font-weight: 700;
+    direction: ltr;
+
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 12px #749aec;
+
+}
+
+#sarbarg {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+#addFieldsButton {
+    align-items: center;
+    background-color: #00b894;
+    width: 130px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    /* border: 1px solid #000000; */
+    height: 35px;
+    font-size: small;
+    font-weight: 600;
+    direction: ltr;
+    color: #ffffff;
+    margin-bottom: 10px;
+    border: none !important;
+
+}
+
+#removeFieldsButton {
+    align-items: center;
+    background-color: #b82b00;
+    width: 160px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    /* border: 1px solid #000000; */
+    height: 35px;
+    font-size: small;
+    font-weight: 600;
+    direction: ltr;
+    color: #ffffff;
+    margin-top: 5px;
+    border: none !important;
+}
+
+/* Styled buttons */
+
+
+input[type="button"]:hover {
+    background-color: rgb(106, 154, 245);
+}
+
+/* Animated sliding toggles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    margin-right: 5px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #00b894;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #749aec;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+textarea {
+    width: 90% !Important;
+
+    /* border-radius: 10px; */
+    /* border: 1px solid #d9d9d9; */
+    direction: ltr;
+    height: 90%;
+    background-color: transparent;
+    color: #1a202c;
+    font-size: 16px;
+    font-weight: 300;
+    border-color: transparent;
+
+}
+
+#sutton {
+
+    margin-top: 30px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+
+#youtube {
+    margin-top: 20px;
+    width: auto;
+
+    background-color: rgb(255, 36, 36);
+    border: none;
+    border-radius: 7px;
+    /* padding: 10px 20px; */
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: small;
+    font-weight: 600;
+    height: 40px;
+
+}
+
+#random {
+
+    margin-top: 5px;
+    border-color: transparent;
+    height: 30px;
+    font-weight: 600 !Important;
+    font-size: 12px;
+    width: 120px;
+    border-radius: 10px;
+    background-color: #11e999;
+
+}
+
+#github,
+#github1 {
+    width: auto;
+
+    background-color: rgb(48, 48, 48);
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: small;
+    font-weight: 600;
+    height: 40px;
+
+}
+
+#inboundname,
+#port,
+#sni,
+#pubkey,
+#pvkey,
+#dest,
+#ServerNames,
+#ShortIds,
+#SpiderX,
+#PrivateKey,
+#PublicKey,
+#path {
+    margin: 0px 0px 0px 0px;
+    height: 20px;
+    width: -webkit-fill-available;
+    border-radius: 15px;
+    font-weight: 500;
+
+}
+
+
+
+.field {
+    margin: 0px 0px 10px 0px;
+    height: 20px;
+    width: -webkit-fill-available;
+    border-radius: 15px;
+    font-weight: 500;
+}
+
+#acceptProxyProtocols,
+#headerOnOffDiv {
+    margin-top: 10px;
+    /* justify-content: center; */
+    /* justify-items: center; */
+    direction: ltr;
+    /* justify-content: center; */
+    font-size: large;
+    display: flex;
+    align-items: center;
+    display: -webkit-inline-box";
+
+}
+
+#protocolDetails {
+    margin-top: 30px;
+    direction: ltr;
+}
+
+hr {
+    color: #333;
+    /* رنگ خط */
+    background-color: #333;
+    /* رنگ پس زمینه خط */
+    height: 2px;
+    /* ارتفاع خط */
+    border: none;
+    /* حذف حاشیه خط */
+}
+
+.json-container {
+    display: flex;
+    border: 1px solid #ccc;
+    width: 400px;
+}
+
+.line-numbers {
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body onload="protocolDetails()">
+    <span id="topcontents">
+        <img src="logo.png" alt="logo" id="logo">
+
+
+    </span>
+    <div id="bodypard">
+        <div id="ctext">
+            <br>
+            <textarea id="final" style="display: none;width: 100%" onclick="protocolDetails()"></textarea>
+
+        </div>
+        <div id="content">
+            <form id="MainDetails" onchange="protocolDetails()">
+                <label for=" protocol">Protocol</label>
+                <select name="protocol" id="protocol">
+                    <option value="vless">vless</option>
+                    <option value="vmess">vmess</option>
+                    <option value="trojan">trojan</option>
+                </select>
+
+                <div id="transmissions">
+                    <label for="transmission">Transmission</label>
+                    <select name="transmission" id="transmission" onchange="protocolDetails()">
+                        <option value="tcp">tcp</option>
+                        <option value="ws">ws</option>
+                        <option value="grpc">grpc</option>
+                    </select>
+                </div>
+
+                <div id="idsecurity" onchange="protocolDetails()">
+                    <label for="security">Security</label>
+                    <select name="security" onchange="protocolDetails()">
+                        <option value="none">none</option>
+                        <option value="tls" id="tls">tls</option>
+                        <option value="xtls" id="xtls">xtls</option>
+                        <option value="reality" id="reality">reality</option>
+                    </select>
+                </div>
+
+
+            </form>
+
+            <hr style="margin-top: 30px;">
+
+            <form id="protocolDetails" style="display: none;">
+                <div>
+                    <label for="name-field">✅ Inbound Name</label>
+                    <input type="text" id="inboundname" value="Inbound Name" name="name-field"
+                        placeholder="نام اینباند را وارد کنید" onchange="protocolDetails()">
+                        <button type="button" id="random" name="random" onclick="randomize ()">Random Name</button>
+                </div>
+
+                <div>
+                    <label for="number-field">✅ Port </label>
+                    <input type="number" id="port" name="number-field" placeholder="e.g 2053"
+                        onchange="protocolDetails()">
+                </div>
+
+
+                <div id="Tls" style="display: none;" onchange="protocolDetails()">
+                    <div>
+                        <label for="TLS-field">✅ SNI </label>
+                        <input type="text" id="sni" name="sni-field" placeholder="a.example.com"
+                            onchange="protocolDetails()">
+                    </div>
+                    <div>
+                        <label for="pub-field">✅ Public Key </label>
+                        <input type="text" id="pubkey" name="pubkey-field"
+                            placeholder="/root/cert/a.example.com/fullchain.pem">
+                    </div>
+                    <div>
+                        <label for="pv-field">✅ Private Key </label>
+                        <input type="text" id="pvkey" name="pvkey-field"
+                            placeholder="/root/cert/a.example.com/Privatekey.pem">
+                    </div>
+                </div>
+
+
+                <div id="RealityForm" style="display: none;" onchange="protocolDetails()">
+                    <div>
+                        <label for="TLS-field">✅ dest </label>
+                        <input type="text" id="dest" name="dest-field" placeholder="xray.com:443">
+                    </div>
+                    <div>
+                        <label for="ServerNames-field">✅ ServerNames </label>
+                        <input type="text" id="ServerNames" name="ServerNames-field"
+                            placeholder="xray.com,www.xray.com">
+                    </div>
+                    <div>
+                        <label for="ShortIds-field">✅ ShortIds </label>
+                        <input type="text" id="ShortIds" name="ShortIds-field" placeholder="e.g 26c9b62c">
+                    </div>
+                    <div>
+                        <label for="SpiderX-field">✅ SpiderX </label>
+                        <input value="/" type="text" id="SpiderX" name="SpiderX-field" placeholder="/">
+                    </div>
+                    <div id="publickeyStatus">
+                        <label for="Public Key-field">✅ PublicKey </label>
+                        <label class="switch">
+                            <input type="checkbox" id="publickeyStatusOnOff" onchange="protocolDetails()">
+
+                            <span class="slider round"></span>
+                        </label>
+                        <label for="publickeyStatus" style="display:-webkit-inline-box">I Have PublicKey!</label>
+
+                    </div>
+                    <div id="PublicKeyDiv" style="display: none;">
+
+                        <input type="text" id="PublicKey" name="Public Key-field"
+                            placeholder="kMxiGlQa4ubWnhX94SEifF_8CbzeY_kBaLwcMnXw20I">
+                    </div>
+                    <div>
+                        <label for="Private Key-field">✅ PrivateKey </label>
+                        <input type="text" id="PrivateKey" name="Private Key-field"
+                            placeholder="958omt37wmklYtS-cQHZAEADGMnml7JX6ShYQn364wk">
+                    </div>
+                </div>
+                <hr style="margin-top: 10px;">
+                <div id="acceptProxyProtocols">
+
+                    <label class="switch">
+                        <input type="checkbox" id="acceptProxyProtocol" onchange="protocolDetails()">
+
+                        <span class="slider round"></span>
+                    </label>
+                    <label for="acceptProxyProtocol" style="display:-webkit-inline-box">AcceptProxyProtocol</label>
+
+                </div>
+                <hr style="margin-top: 10px;">
+                <div id="divheader">
+                    <label for="header">Header Type</label>
+                    <select name="header" id="header" onchange="protocolDetails()">
+                        <option value="None">None</option>
+                        <option value="http">http</option>
+                    </select>
+
+                    <div id="http_header_Fields" style="display: none;">
+                        <div>
+                            <label for="path-field">Path</label>
+                            <input type="text" id="path" name="path-field" placeholder="/" value="/"
+                                onchange="protocolDetails()">
+                        </div>
+                        <div id="headerOnOffDiv">
+
+                            <label class="switch" style="display:-webkit-inline-box">
+
+                                <input type="checkbox" id="headerOnOff" onchange="protocolDetails()">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="headeron-field" style="display:-webkit-inline-box">Request Header</label>
+                        </div>
+                        <div id="sarbarg">
+                            <center onclick="protocolDetails()">
+                                <button id="addFieldsButton" onclick="protocolDetails()">Add Header</button>
+                            </center>
+                            <div id="targetDiv" onchange="protocolDetails()">
+                                <!-- اینجا فیلدها اضافه خواهند شد -->
+                            </div>
+                            <center onclick="protocolDetails()">
+                                <button id="removeFieldsButton" style="display: none;"
+                                    onclick="protocolDetails()">Remove Last one</button>
+                            </center>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+                    <center>
+                        <input type="button" value="Copy to Clipboard!" id="sutton" onclick="protocolDetails()">
+                        <input type="button" value="My YouTube Channel" id="youtube">
+                        <input type="button" value="GitHub Repository" id="github" style="margin-top: 20px;">
+                        <input type="button" value="Marzban (Gozargah) on Github" id="github1"
+                            style="margin-top: 10px;background-color:bisque;color: black;">
+                    </center>
+
+
+
+            </form>
+
+        </div>
+    </div>
+    <script src=" script.js"></script>
+
+</body>
+
+</html>
