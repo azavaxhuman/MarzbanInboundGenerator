@@ -39,6 +39,7 @@ function protocolDetails() {
   let port = document.getElementById('port').value;
   let name = document.getElementById('inboundname').value
 
+  const button = document.getElementById("random");
 
 
 
@@ -61,10 +62,16 @@ function protocolDetails() {
     : (document.getElementById('acceptProxyProtocols').style.display = 'block')
   headerOnOff == true
     ? (document.getElementById('sarbarg').style.display = 'block')
-    : (document.getElementById('sarbarg').style.display = 'none');
+    : (document.getElementById('sarbarg').style.display = 'none')
+  if (h == 0) {
+    headerOnOff = false
 
-  headerOnOff = h !== 0 && document.getElementById('headerOnOff').checked;
+  }
+  else {
 
+    headerOnOff = document.getElementById('headerOnOff').checked;
+
+  }
   var userdest = document.getElementById('dest').value;
 
   var dest = userdest.includes(":443") ? userdest : userdest + ":443";
@@ -74,6 +81,7 @@ function protocolDetails() {
   let SpiderX = document.getElementById('SpiderX').value
   let PublicKey = document.getElementById('PublicKey').value
   let PrivateKey = document.getElementById('PrivateKey').value
+  // let tls = document.getElementById("tLS");
   let publickeyStatus = document.getElementById('publickeyStatusOnOff').checked
   publickeyStatus == true
     ? (document.getElementById('PublicKeyDiv').style.display = 'block')
@@ -91,9 +99,11 @@ function protocolDetails() {
   //نمایان شدن کانفیگ ها در کنار هم
 
   if (pt == 11 || pt == 15 || pt == 51 || pt == 55) {
-
+    // reality.style.display = "block";
+    // xtls.style.display = "block";
     var idsecurityDiv1 = document.getElementById('idsecurity')
 
+    // محتوای جدیدی که می‌خواهید جایگزین شود
     var newText1 = `<div id="idsecurity">
         <label for="security">Security</label>
         <select name="security" onchange="protocolDetails()">
@@ -104,6 +114,7 @@ function protocolDetails() {
         </select>
     </div>`
 
+    // جایگزینی محتوای عنصر با متن جدید
     idsecurityDiv1.innerHTML = newText1
     var securitySelect1 = document.querySelector('select[name="security"]')
     securitySelect1.value = security
@@ -121,6 +132,7 @@ function protocolDetails() {
             </select>
         </div>`
 
+      // جایگزینی محتوای عنصر با متن جدید
       idsecurityDiv2.innerHTML = newText2
       var securitySelect2 = document.querySelector('select[name="security"]')
       securitySelect2.value = security
@@ -128,6 +140,7 @@ function protocolDetails() {
   } else if (p == 2) {
     var idsecurityDiv4 = document.getElementById('idsecurity')
 
+    // محتوای جدیدی که می‌خواهید جایگزین شود
     var newText4 = `<div id="idsecurity">
         <label for="security">Security</label>
         <select name="security" onchange="protocolDetails()">
@@ -146,6 +159,7 @@ function protocolDetails() {
   } else {
     var idsecurityDiv3 = document.getElementById('idsecurity')
 
+    // محتوای جدیدی که می‌خواهید جایگزین شود
     var newText3 = `<div id="idsecurity">
         <label for="security">Security</label>
         <select name="security" onchange="protocolDetails()">
@@ -155,9 +169,13 @@ function protocolDetails() {
     </div>`
     idsecurityDiv3.innerHTML = newText3
     var securitySelect3 = document.querySelector('select[name="security"]')
-    security = (security === 'reality' || security === 'xtls') ? 'none' : security;
+    if (security == 'reality' || security == 'xtls') {
+      security = 'none'
+
+      protocolDetails()
+    }
+
     securitySelect3.value = security
-    protocolDetails()
   }
 
   //نمایان شدن فیلد های ثانویه
@@ -284,14 +302,14 @@ function addFields(event) {
   input1.value = `Host${fieldCounter + 1}`
   input1.id = `field1_${fieldCounter + 1}`
   input1.placeholder = 'فیلد اول'
-  input1.classList.add('field') 
+  input1.classList.add('field') // اضافه کردن کلاس "field" به المان
 
   const input2 = document.createElement('input')
   input2.type = 'text'
   input2.id = `field2_${fieldCounter + 1}`
   input2.value = 'Xray.com'
   input2.placeholder = 'فیلد دوم'
-  input2.classList.add('field') 
+  input2.classList.add('field') // اضافه کردن کلا
   const hr1 = document.createElement('hr')
   hr1.id = 'hr1'
   inputContainer.appendChild(input1)
@@ -338,7 +356,9 @@ function toggleRemoveButtonVisibility() {
 }
 addButton.addEventListener('click', addFields)
 removeButton.addEventListener('click', removeFields)
+// هنگامی که اطلاعات وارد شود، اطلاعات به طور مستقیم به آرایه افزوده می‌شوند
 
+/////////////////////////
 
 function DisplayBlock(objectblock, x) {
   x === '0'
@@ -387,7 +407,7 @@ function BuildTLS(
 
   if (h == 1 && fieldCounter > 0 && headerOnOff) {
     if (fields.length > 0) {
-      var result = '' 
+      var result = '' // متغیر برای ذخیره نهایی
       var justhosts = ''
       for (
         var k = fields.length + 1 - fields.length - 1;
@@ -397,8 +417,10 @@ function BuildTLS(
         var key = fields[k].value
         var value = fields[k + 1].value
 
+        // اضافه کردن مقدار template به متغیر result
         result += `"${key}": "${value}"`
         justhosts += `"${value}"`
+        // اگر نهایت رشته نیست، یک کاما و یک اینتر (یا خط جدید) اضافه کنید
         if (k < fields.length - 2) {
           result += ',\n'
           justhosts += ','
@@ -626,7 +648,7 @@ function BuildReality(pts, t, s, protocol, transmission,
   //حالتی که ریکوئست هدر فعال است
   if (h == 1 && fieldCounter > 0 && headerOnOff) {
     if (fields.length > 0) {
-      var result = '' 
+      var result = '' // متغیر برای ذخیره نهایی
       var justhosts = ''
       for (
         var k = fields.length + 1 - fields.length - 1;
@@ -636,8 +658,10 @@ function BuildReality(pts, t, s, protocol, transmission,
         var key = fields[k].value
         var value = fields[k + 1].value
 
+        // اضافه کردن مقدار template به متغیر result
         result += `"${key}": "${value}"`
         justhosts += `"${value}"`
+        // اگر نهایت رشته نیست، یک کاما و یک اینتر (یا خط جدید) اضافه کنید
         if (k < fields.length - 2) {
           result += ',\n'
           justhosts += ','
@@ -791,15 +815,14 @@ document.getElementById('github').addEventListener('click', function () {
 document.getElementById('github1').addEventListener('click', function () {
   window.open('https://github.com/Gozargah/Marzban', '_blank')
 })
-
 const button = document.getElementById("random");
 
-function randomize () {
-   const randomValue = generateRandomString(4);
-   const newValue = randomValue;
-   document.getElementById('inboundname').value = newValue;
-   protocolDetails();
- };
+function randomize() {
+  const randomValue = generateRandomString(4);
+  const newValue = randomValue;
+  document.getElementById('inboundname').value = newValue;
+  protocolDetails();
+};
 
 function generateRandomString(length) {
   const charset = "ABCDEFtuvwxyz0123456789";
