@@ -7,7 +7,7 @@
   <h3 align="center">Marzban Inbound Generator</h3>
 
   <p align="center">
-    Create different v2ray configurations easily! Optimized for Marzban panel
+    Make v2ray inbonds easily! Optimized for Marzban panel
     <br/>
     <br/>
     <a href="https://github.com/azavaxhuman/MarzbanInboundGenerator"><strong>Explore the docs »</strong></a>
