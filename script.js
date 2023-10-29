@@ -5,16 +5,89 @@ function protocolDetails() {
   let security = MainForm.elements.security.value
   let headertype = document.getElementById('header').value
   let path = document.getElementById('path').value
+  var sniffing = document.getElementById('sniffing').checked;
+  var destOverride = "";
+  var sniftext = '';
+  var checkboxes = document.querySelectorAll('.group-checkbox');
+  var transmissions = document.getElementById("transmissions");
+  var idsecurity = document.getElementById("idsecurity");
+
+
+
+  var securitySelect = document.querySelector('select[name="security"]');
+  var shadowNetworks = document.getElementById("shadowNetworks");
+
+
+
+
+  function sniffingconfig(config) {
+    if (config == true) {
+      document.getElementById("sniffingDiv").style.display = "block";
+
+      document.getElementById("SniffingCheckbox").style.display = "block";
+      function updateSelectedOptions() {
+        var selectedOptions = [];
+
+        checkboxes.forEach(function (checkbox) {
+          if (checkbox.checked) {
+            selectedOptions.push('"' + checkbox.name + '"');
+
+          }
+        });
+
+        if (selectedOptions.length > 0) {
+          destOverride = selectedOptions.join(', ');
+
+
+        } else {
+          destOverride = selectedOptions;
+
+        }
+        if (destOverride == '') {
+          // alert("ddd");
+          document.getElementById('sniffing').checked = false;
+          checkboxes.forEach(function (checkbox) {
+            checkbox.checked = true; // اگر دکمه sniffing فعال شود، تمام چک باکس‌ها را فعال کنید.
+          });
+          document.getElementById("SniffingCheckbox").style.display = "none";
+          sniffing = false;
+          //offsniftext();
+
+
+        }
+        return destOverride;
+
+      }
+
+      return updateSelectedOptions();
+    }
+    if (!config) {
+      document.getElementById("SniffingCheckbox").style.display = "none";
+      return '';
+
+
+    }
+  }
+  sniftext = `,
+  "sniffing": {
+      "enabled": true,
+      "destOverride": [${sniffingconfig(sniffing)}]
+  }`;
+
 
   const protocolMapping = {
     vless: 1,
     vmess: 2,
-    trojan: 5
+    trojan: 5,
+    shadowsocks: 9
   }
   const transsportMapping = {
     tcp: 1,
     ws: 2,
-    grpc: 5
+    grpc: 5,
+    tcpudp: 7,
+    tcpS: 8,
+    udpS: 9
   }
   const securityMapping = {
     tls: 1,
@@ -51,7 +124,7 @@ function protocolDetails() {
 
   var acceptProxyProtocol = document.getElementById(
     'acceptProxyProtocol'
-  ).checked
+  ).checked;
   var headerOnOff = document.getElementById('headerOnOff').checked
   h == 0
     ? (document.getElementById('headerOnOffDiv').style.display = 'none')
@@ -92,91 +165,133 @@ function protocolDetails() {
 
   document.getElementById('protocolDetails').style.display = 'block'
   document.getElementById('divheader').style.display =
-    t === 5 ? 'none' : 'block'
+    t === 5 ? 'none' : 'block';
   document.getElementById('http_header_Fields').style.display =
-    h === 0 ? 'none' : 'block'
+    h === 0 ? 'none' : 'block';
 
+
+  if (acceptProxyProtocol) {
+
+    acceptProxyProtocol = `
+          "acceptProxyProtocol": true,`;
+
+  }
+  else {
+
+    acceptProxyProtocol = '';
+  }
   //نمایان شدن کانفیگ ها در کنار هم
 
-  if (pt == 11 || pt == 15 || pt == 51 || pt == 55) {
-    // reality.style.display = "block";
-    // xtls.style.display = "block";
-    var idsecurityDiv1 = document.getElementById('idsecurity')
+  if (p == 9) {
+    idsecurity.style.display = "none";
+    document.getElementById("NetWorks").style.display = "block";
+    transmissions.style.display = "none";
+    var network = document.getElementById("network").value;
+    BuildShadow(network, name, port);
 
-    // محتوای جدیدی که می‌خواهید جایگزین شود
-    var newText1 = `<div id="idsecurity">
-        <label for="security">Security</label>
-        <select name="security" onchange="protocolDetails()">
-            <option value="none">none</option>
-            <option value="tls" id="tls">tls</option>
-            <option value="xtls" id="xtls">xtls</option>
-            <option value="reality" id="reality">reality</option>
-        </select>
-    </div>`
 
-    // جایگزینی محتوای عنصر با متن جدید
-    idsecurityDiv1.innerHTML = newText1
-    var securitySelect1 = document.querySelector('select[name="security"]')
-    securitySelect1.value = security
+  }
+  else {
+    document.getElementById("NetWorks").style.display = "none";
+    transmissions.style.display = "block";
+    idsecurity.style.display = "block";
 
-    if (pt == 15 || pt == 55) {
-      var idsecurityDiv2 = document.getElementById('idsecurity')
+    transmission.innerHTML = `<div id="transmissions">
+    <label for="transmission">Transmission</label>
+    <select name="transmission" id="transmission" >
+        <option value="tcp">tcp</option>
+        <option value="ws">ws</option>
+        <option value="grpc">grpc</option>
+    </select>
+</div>`;
+    if (pt == 11 || pt == 15 || pt == 51) {
+
+      if (pt == 11) {
+        console.log(pt);
+
+
+        // محتوای جدیدی که می‌خواهید جایگزین شود
+        var newText1 = `<div id="idsecurity">
+          <label for="security">Security</label>
+          <select name="security" >
+              <option value="none">none</option>
+              <option value="tls" id="tls">tls</option>
+              <option value="xtls" id="xtls">xtls</option>
+              <option value="reality" id="reality">reality</option>
+          </select>
+      </div>`;
+
+        // جایگزینی محتوای عنصر با متن جدید
+
+        idsecurity.innerHTML = newText1;
+        document.querySelector('select[name="security"]').value = security;
+
+
+      }
+      else if (pt == 15) {
+
+
+        // محتوای جدیدی که می‌خواهید جایگزین شود
+        var newText2 = `<div id="idsecurity">
+      <label for="security">Security</label>
+      <select name="security" >
+          <option value="none">none</option>
+          <option value="tls" id="tls">tls</option>
+          <option value="reality" id="reality">reality</option>
+      </select>
+  </div>`;
+
+        // جایگزینی محتوای عنصر با متن جدید
+        idsecurity.innerHTML = newText2;
+
+        document.querySelector('select[name="security"]').value = security;
+      }
+      else {
+
+
+
+        // محتوای جدیدی که می‌خواهید جایگزین شود
+        var newText3 = `<div id="idsecurity">
+          <label for="security">Security</label>
+          <select name="security" >
+              <option value="none">none</option>
+              <option value="tls" id="tls">tls</option>
+              <option value="xtls" id="xtls">xtls</option>
+          </select>
+      </div>`;
+
+        // جایگزینی محتوای عنصر با متن جدید
+        idsecurity.innerHTML = newText3;
+
+        document.querySelector('select[name="security"]').value = security;
+      }
+    }
+
+    else {
+
 
       // محتوای جدیدی که می‌خواهید جایگزین شود
-      var newText2 = `<div id="idsecurity">
-            <label for="security">Security</label>
-            <select name="security" onchange="protocolDetails()">
-                <option value="none">none</option>
-                <option value="tls" id="tls">tls</option>
-                <option value="reality" id="reality">reality</option>
-            </select>
-        </div>`
+      var newText4 = `<div id="idsecurity">
+      <label for="security">Security</label>
+      <select name="security" >
+          <option value="none">none</option>
+          <option value="tls" id="tls">tls</option>
+      </select>
+  </div>`;
 
       // جایگزینی محتوای عنصر با متن جدید
-      idsecurityDiv2.innerHTML = newText2
-      var securitySelect2 = document.querySelector('select[name="security"]')
-      securitySelect2.value = security
+      idsecurity.innerHTML = newText4;
+
+      if (security == 'reality' || security == 'xtls') {
+        security = 'none'
+        protocolDetails();
+      }
+
+      document.querySelector('select[name="security"]').value = security;
+
     }
-  } else if (p == 2) {
-    var idsecurityDiv4 = document.getElementById('idsecurity')
-
-    // محتوای جدیدی که می‌خواهید جایگزین شود
-    var newText4 = `<div id="idsecurity">
-        <label for="security">Security</label>
-        <select name="security" onchange="protocolDetails()">
-            <option value="none">none</option>
-            <option value="tls" id="tls">tls</option>
-        </select>
-    </div>`
-    idsecurityDiv4.innerHTML = newText4
-
-    var securitySelect4 = document.querySelector('select[name="security"]')
-    if (security == 'reality' || security == 'xtls') {
-      security = 'none'
-    }
-
-    securitySelect4.value = security
-  } else {
-    var idsecurityDiv3 = document.getElementById('idsecurity')
-
-    // محتوای جدیدی که می‌خواهید جایگزین شود
-    var newText3 = `<div id="idsecurity">
-        <label for="security">Security</label>
-        <select name="security" onchange="protocolDetails()">
-            <option value="none">none</option>
-            <option value="tls" id="tls">tls</option>
-        </select>
-    </div>`
-    idsecurityDiv3.innerHTML = newText3
-    var securitySelect3 = document.querySelector('select[name="security"]')
-    if (security == 'reality' || security == 'xtls') {
-      security = 'none'
-
-      protocolDetails()
-    }
-
-    securitySelect3.value = security
   }
+
 
   //نمایان شدن فیلد های ثانویه
   //کانفیگ های TLS دار
@@ -184,99 +299,108 @@ function protocolDetails() {
   if (fieldCounter > 0) {
     var fields = document.querySelectorAll('.field')
   }
+  if (p != 9) {
+    if (s == 1) {
+      DisplayBlock(TlsForm, '1')
+      DisplayBlock(RealityForm, '0')
 
-  if (s == 1) {
-    DisplayBlock(TlsForm, '1')
-    DisplayBlock(RealityForm, '0')
-
-    BuildTLS(
-      pts,
-      t,
-      s,
-      protocol,
-      transmission,
-      security,
-      name,
-      port,
-      sni,
-      pubkey,
-      pvkey,
-      h,
-      path,
-      fields,
-      acceptProxyProtocol,
-      headerOnOff
-    )
-  }
-  if (s == 2) {
-    DisplayBlock(TlsForm, '1')
-    DisplayBlock(RealityForm, '0')
-    BuildTLS(
-      pts,
-      t,
-      s,
-      protocol,
-      transmission,
-      security,
-      name,
-      port,
-      sni,
-      pubkey,
-      pvkey,
-      h,
-      path,
-      fields,
-      acceptProxyProtocol,
-      headerOnOff
-    )
-  }
-  if (s == 5) {
-    DisplayBlock(TlsForm, '0')
-    DisplayBlock(RealityForm, '1')
-    BuildReality(
-      pts,
-      t,
-      s,
-      protocol,
-      transmission,
-      security,
-      name,
-      port,
-      dest,
-      ServerNames,
-      ShortIds,
-      SpiderX,
-      PublicKey,
-      PrivateKey,
-      h,
-      path,
-      fields,
-      acceptProxyProtocol,
-      headerOnOff,
-      publickeyStatus
-    )
-  }
-  if (s == 0) {
-    DisplayBlock(TlsForm, '0')
-    DisplayBlock(RealityForm, '0')
-    BuildTLS(
-      pts,
-      t,
-      s,
-      protocol,
-      transmission,
-      security,
-      name,
-      port,
-      sni,
-      pubkey,
-      pvkey,
-      h,
-      path,
-      fields,
-      acceptProxyProtocol,
-      headerOnOff
-    )
+      BuildTLS(
+        pts,
+        t,
+        s,
+        protocol,
+        transmission,
+        security,
+        name,
+        port,
+        sni,
+        pubkey,
+        pvkey,
+        h,
+        path,
+        fields,
+        acceptProxyProtocol,
+        headerOnOff,
+        sniftext,
+        sniffing
+      )
+    }
+    if (s == 2) {
+      DisplayBlock(TlsForm, '1')
+      DisplayBlock(RealityForm, '0')
+      BuildTLS(
+        pts,
+        t,
+        s,
+        protocol,
+        transmission,
+        security,
+        name,
+        port,
+        sni,
+        pubkey,
+        pvkey,
+        h,
+        path,
+        fields,
+        acceptProxyProtocol,
+        headerOnOff,
+        sniftext,
+        sniffing
+      )
+    }
+    if (s == 5) {
+      DisplayBlock(TlsForm, '0')
+      DisplayBlock(RealityForm, '1')
+      BuildReality(
+        pts,
+        t,
+        s,
+        protocol,
+        transmission,
+        security,
+        name,
+        port,
+        dest,
+        ServerNames,
+        ShortIds,
+        SpiderX,
+        PublicKey,
+        PrivateKey,
+        h,
+        path,
+        fields,
+        acceptProxyProtocol,
+        headerOnOff,
+        publickeyStatus,
+        sniftext,
+        sniffing
+      )
+    }
+    if (s == 0) {
+      DisplayBlock(TlsForm, '0')
+      DisplayBlock(RealityForm, '0')
+      BuildTLS(
+        pts,
+        t,
+        s,
+        protocol,
+        transmission,
+        security,
+        name,
+        port,
+        sni,
+        pubkey,
+        pvkey,
+        h,
+        path,
+        fields,
+        acceptProxyProtocol,
+        headerOnOff,
+        sniftext,
+        sniffing
+      )
+    }
   }
 }
 
@@ -382,7 +506,9 @@ function BuildTLS(
   path,
   fields,
   acceptProxyProtocol,
-  headerOnOff
+  headerOnOff,
+  sniftext,
+  sniffing
 ) {
   var pts = pts.toString()
   var t = t.toString()
@@ -397,13 +523,42 @@ function BuildTLS(
   var pvkey = pvkey.toString()
   var h = h.toString()
   var n = '\n'
-  var acceptProxyProtocol = acceptProxyProtocol
+  var acceptProxyProtocol = acceptProxyProtocol.toString();
   var headerOnOff = headerOnOff
   var fields = fields
   var path = path.toString()
   document.getElementById('final').style.display = 'block'
   var final = document.getElementById('final')
   var listen = '"listen": "0.0.0.0",'
+  //decryption settings
+  var decryptionSettings = '';
+  if (pts <= 155) {
+    decryptionSettings = `"settings": {
+        "clients": [],
+        "decryption": "none"
+                  },`;
+
+  }
+  else {
+
+    decryptionSettings = `"settings": {
+        "clients": []
+                  },`;
+
+
+  }
+
+
+
+  if (sniffing) {
+    sniftext = sniftext;
+
+  }
+  else {
+
+    sniftext = '';
+  }
+
 
   if (h == 1 && fieldCounter > 0 && headerOnOff) {
     if (fields.length > 0) {
@@ -430,108 +585,85 @@ function BuildTLS(
   }
   if (t == 1) {
     if (h == 0 && headerOnOff == false) {
-      var settings = `"tcpSettings": {
-                "acceptProxyProtocol": ${acceptProxyProtocol},
-                "header": {
-                    "type": "none"
-                }
-            },`
+      var settings = `"tcpSettings": {${acceptProxyProtocol}
+          "header": {
+          "type": "none"
+      }
+    },`
     } else if (h == 1 && headerOnOff == false) {
-      var settings = `"tcpSettings": {
-                "acceptProxyProtocol":  ${acceptProxyProtocol},
-                "header": {
-                    "type": "http",
-                    "request": {
-                        "path": ["${path}"],
-                        "User-Agent": [
-                            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
-                            "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-                          ],
-                          "Accept-Encoding": ["gzip, deflate"],
-                          "Connection": ["keep-alive"],
-                          "Pragma": "no-cache"
+      var settings = `"tcpSettings": {${acceptProxyProtocol}
+      "header": {
+      "type": "http",
+      "request": {
+      "version": "1.1",
+      "method": "GET",
+      "path": ["${path}"]
+                },
+      "response": {}
                 }
-            }},`
+                },`
     } else {
-      var settings = `"tcpSettings": {
-                "acceptProxyProtocol":  ${acceptProxyProtocol},
-                "header": {
-                    "type": "http",
-                    "request": {
-                        "path": ["${path}"],
-                        "headers": {
-                            "Host": [${justhosts}] ,
-                            "User-Agent": [
-                                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
-                                "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-                              ],
-                              "Accept-Encoding": ["gzip, deflate"],
-                              "Connection": ["keep-alive"],
-                              "Pragma": "no-cache"
-
+      var settings = `"tcpSettings": {${acceptProxyProtocol}
+      "header": {
+        "type": "http",
+        "request": {
+          "version": "1.1",
+          "method": "GET",
+          "path": ["${path}"],
+          "headers":{
+            "Host": [${justhosts}]
                     }
-                }
-            }},`
+                  },
+        "response": {}
+                  }
+                  },`
     }
   } else if (t == 2) {
     if (h == 0 && headerOnOff == false) {
-      var settings = `"wsSettings": {
-                "acceptProxyProtocol": ${acceptProxyProtocol},
-                "path": "${path}",
-                "header": {
-                    "type": "none"
+      var settings = `"wsSettings": {${acceptProxyProtocol}
+      "header": {
+      "type": "none"
                 }
                 },`
     } else if (h == 1 && headerOnOff == false) {
-      var settings = `"wsSettings": {
-                "acceptProxyProtocol": ${acceptProxyProtocol},
+      var settings = `"wsSettings": {${acceptProxyProtocol}
                 "path": "${path}",
                 "header": {
                     "type": "none"
                 }
                 },`
     } else {
-      var settings = `"wsSettings": {
-"acceptProxyProtocol": ${acceptProxyProtocol},
-"path": "${path}",
-"headers": {
-    "Host": [${justhosts}] 
+      var settings = `"wsSettings": {${acceptProxyProtocol}
+      "path": "${path}",
+      "headers": {
+      "Host": ${justhosts}
            }
 },`
     }
   } else {
     if (s == 0) {
       var settings = `"grpcSettings": {
-                "serviceName": "${tag}"
+      "serviceName": "${protocol}"
             },`
     } else {
       var settings = `"grpcSettings": {
-            "serviceName": "${sni}"
+      "serviceName": "${sni}"
         },`
     }
   }
   if (s == 0) {
     final.value = `{
-"tag": "${tag}",
-"listen": "0.0.0.0",
-"port": ${port},
-"protocol": "${protocol}",
-"settings": {
-"clients": []
-},
-"streamSettings": {
-"network": "${transmission}",
-${settings}
-"security": "none"
-},
-"sniffing": {
- "enabled": true,
-"destOverride": [
-"http",
-"tls"
-            ]
-        }
-    },`
+      "tag": "${tag}",
+      "listen": "0.0.0.0",
+      "port": ${port},
+      "protocol": "${protocol}",
+      ${decryptionSettings}
+      "streamSettings": {
+      "network": "${transmission}",
+      ${settings}
+      "security": "none"
+                }${sniftext}
+                  },`
   }
 
   if (s > 0) {
@@ -547,10 +679,7 @@ ${settings}
 "protocol": "` +
       protocol +
       `",
-"settings": {
-"clients": [],
-"decryption": "none"
-},
+      ${decryptionSettings}
 "streamSettings": {
 "network": "` +
       transmission +
@@ -562,28 +691,28 @@ ${settings}
       security +
       `",
 "tlsSettings": {
-    "serverName": "` +
+      "serverName": "` +
       sni +
       `",
-    "certificates": [
+      "certificates": [
         {
-            "ocspStapling": 3600,
-            "certificateFile": "` +
+      "ocspStapling": 3600,
+      "certificateFile": "` +
       pubkey +
       `",
-            "keyFile": "` +
+      "keyFile": "` +
       pvkey +
       `"
         }
-    ],
-    "rejectUnknownSni": false,
-    "allowInsecure": false,
-    "alpn": ["h2", "http/1.1"],
-    "minVersion": "1.2",
-    "maxVersion": "1.3",
-    "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+                    ],
+      "rejectUnknownSni": false,
+      "allowInsecure": false,
+      "alpn": ["h2", "http/1.1"],
+      "minVersion": "1.2",
+      "maxVersion": "1.3",
+      "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
 }
-}
+}${sniftext}
 },`
   }
 }
@@ -603,7 +732,8 @@ function BuildReality(pts, t, s, protocol, transmission,
   fields,
   acceptProxyProtocol,
   headerOnOff,
-  publickeyStatus
+  publickeyStatus,
+  sniftext, sniffing
 ) {
   var pts = pts.toString()
   var t = t.toString()
@@ -641,10 +771,21 @@ function BuildReality(pts, t, s, protocol, transmission,
   document.getElementById('final').style.display = 'block'
   var final = document.getElementById('final')
   if (publickeyStatus) {
-    var Pub = `"publicKey": "${PublicKey}",`
+    var Pub = `
+          "publicKey": "${PublicKey}",`
   } else {
     Pub = ''
   }
+
+  if (sniffing) {
+    sniftext = sniftext;
+
+  }
+  else {
+
+    sniftext = '';
+  }
+
   //حالتی که ریکوئست هدر فعال است
   if (h == 1 && fieldCounter > 0 && headerOnOff) {
     if (fields.length > 0) {
@@ -671,89 +812,73 @@ function BuildReality(pts, t, s, protocol, transmission,
   }
   if (t == 1) {
     if (h == 0 && headerOnOff == false) {
-      var settings = `"tcpSettings": {
-                "acceptProxyProtocol": ${acceptProxyProtocol},
-                "header": {
-                    "type": "none"
-                }
-            }},`
+      var settings = `"tcpSettings": {${acceptProxyProtocol}
+      "header": {
+      "type": "none"
+  }
+},`
     } else if (h == 1 && headerOnOff == false) {
-      var settings = `"tcpSettings": {
-                "acceptProxyProtocol":  ${acceptProxyProtocol},
-                "header": {
-                    "type": "http",
-                    "request": {
-                        "path": ["${path}"],
-                        "User-Agent": [
-                            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
-                            "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-                          ],
-                          "Accept-Encoding": ["gzip, deflate"],
-                          "Connection": ["keep-alive"],
-                          "Pragma": "no-cache"
+      var settings = `"tcpSettings": {${acceptProxyProtocol}
+      "header": {
+      "type": "http",
+      "request": {
+      "version": "1.1",
+      "method": "GET",
+      "path": ["${path}"]
+                },
+      "response": {}
                 }
-            }},`
+                },`
     } else {
-      var settings = `"tcpSettings": {
-                "acceptProxyProtocol":  ${acceptProxyProtocol},
-                "header": {
-                    "type": "http",
-                    "request": {
-                        "path": ["${path}"],
-                        "headers": {
-                            "Host": [${justhosts}] ,
-                            "User-Agent": [
-                                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
-                                "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-                              ],
-                              "Accept-Encoding": ["gzip, deflate"],
-                              "Connection": ["keep-alive"],
-                              "Pragma": "no-cache"
-
+      var settings = `"tcpSettings": {${acceptProxyProtocol}
+      "header": {
+        "type": "http",
+        "request": {
+          "version": "1.1",
+          "method": "GET",
+          "path": ["${path}"],
+          "headers":{
+            "Host": [${justhosts}]
                     }
-                }
-            }
-          
-          },`
+                  },
+        "response": {}
+                  }
+                  },`
     }
 
     final.value = `{
-"tag": "${tag}",
-"listen": "0.0.0.0",
-"port": ${port},
-"protocol": "${protocol}",
-"settings": {
-"clients": [],
-"decryption": "none"
-},
-"streamSettings": {
-"network": "tcp",
-${settings}
-"security": "reality",
-"realitySettings": {
-"show": false,
-"dest": "${dest}",
-"xver": 0,
-"serverNames": [
-${finalServerNames}
-],
-"privateKey": "${PrivateKey}",
-${Pub}
-"spiderX": "${SpiderX}",
-"shortIds": [
-"${ShortIds}"
-]
-}},
-"sniffing": {
-"enabled": true,
-"destOverride": ["http","tls"]
-}
-},`
+      "tag": "${tag}",
+      "listen": "0.0.0.0",
+      "port": ${port},
+      "protocol": "${protocol}",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        ${settings}
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "${dest}",
+          "xver": 0,
+          "serverNames": [
+            ${finalServerNames}
+          ],
+          "privateKey": "${PrivateKey}",${Pub}
+          "spiderX": "${SpiderX}",
+          "shortIds": [
+            "${ShortIds}"
+          ]
+        }
+      }${sniftext}
+    },`;
 
-    printTheJSONInPrettyFormat()
+
   } else if (t == 5) {
     var settings = `"grpcSettings": {
-      "serviceName": "${tag}"
+      "serviceName": "${port}"
     },`
 
     final.value = `{
@@ -782,14 +907,15 @@ ${Pub}
 "shortIds": [
 "${ShortIds}"
 ]
-}},
-"sniffing": {
-"enabled": true,
-"destOverride": ["http","tls"]
-}
+}}${sniftext}
 },`
   }
 }
+
+
+
+
+
 const final = document.getElementById('final')
 const copyButton = document.getElementById('sutton')
 
@@ -817,13 +943,43 @@ document.getElementById('github1').addEventListener('click', function () {
 })
 const button = document.getElementById("random");
 
+
+function actualname() {
+  const networklMapping = {
+    tcpudp: 'tcp,udp',
+    tcpS: 'tcp',
+    udpS: 'udp',
+  }
+  let MainForm = document.getElementById('MainDetails')
+  let protocol = MainForm.elements.protocol.value
+  let transmission = MainForm.elements.transmission.value
+  let security = MainForm.elements.security.value
+  if (protocol == 'shadowsocks') {
+    transmission = networklMapping[document.getElementById('network').value];
+    security = 'none';
+
+  }
+  if (security != 'none') {
+    security = " + " + security;
+  }
+  else {
+    security = '';
+  }
+  var actualname = protocol + " + " + transmission + security;
+  document.getElementById('inboundname').value = actualname.toUpperCase();
+  protocolDetails();
+
+}
+function randomports() {
+  document.getElementById('port').value = Math.floor(Math.random() * 8976 + 1024);
+  protocolDetails();
+}
 function randomize() {
   const randomValue = generateRandomString(4);
   const newValue = randomValue;
   document.getElementById('inboundname').value = newValue;
   protocolDetails();
-};
-
+}
 function generateRandomString(length) {
   const charset = "ABCDEFtuvwxyz0123456789";
   let result = "";
@@ -835,4 +991,36 @@ function generateRandomString(length) {
   }
 
   return result;
+}
+
+
+function BuildShadow(network, name, port) {
+  const networklMapping = {
+    tcpudp: 'tcp,udp',
+    tcpS: 'tcp',
+    udpS: 'udp',
+  }
+
+  var final = document.getElementById('final');
+  var network = network.toString();
+  var name = name;
+
+  var port = port;
+  document.getElementById('acceptProxyProtocols').style.display = "none";
+  document.getElementById('divheader').style.display = "none";
+  document.getElementById('sniffingDiv').style.display = "none";
+  document.getElementById('SniffingCheckbox').style.display = "none";
+
+  var Net = networklMapping[network];
+  final.value = `{
+    "tag": "${name}",
+    "listen": "0.0.0.0",
+    "port": ${port},
+    "protocol": "shadowsocks",
+    "settings": {
+        "clients": [],
+        "network": "${Net}"
+    }
+},`;
+
 }

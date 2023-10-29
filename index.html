@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1024">
@@ -13,44 +12,58 @@
 <body onload="protocolDetails()">
     <span id="topcontents">
         <img src="logo.png" alt="logo" id="logo">
-
-
     </span>
     <div id="bodypard">
         <div id="ctext">
             <br>
-            <textarea id="final" style="display: none;width: 100%" onclick="protocolDetails()"></textarea>
-
+            
+                <div class="line-numbers">
+                    <p></p>
+                </div>
+            <textarea id="final" style="display: none;width: 100%" onload="updateLineNumbers()" onclick="protocolDetails()"></textarea>
         </div>
-        <div id="content">
-            <form id="MainDetails" onchange="protocolDetails()">
+        <div id="content" onchange="protocolDetails()" >
+            <form id="MainDetails" onchange="actualname()" >
                 <label for=" protocol">Protocol</label>
-                <select name="protocol" id="protocol">
-                    <option value="vless">vless</option>
-                    <option value="vmess">vmess</option>
-                    <option value="trojan">trojan</option>
+                <select name="protocol" id="protocol" >
+                    <option value="vless">VLESS</option>
+                    <option value="vmess">VMESS</option>
+                    <option value="trojan">Trojan</option>
+                    <option value="shadowsocks">Shadowsocks</option>
                 </select>
 
                 <div id="transmissions">
                     <label for="transmission">Transmission</label>
-                    <select name="transmission" id="transmission" onchange="protocolDetails()">
-                        <option value="tcp">tcp</option>
-                        <option value="ws">ws</option>
-                        <option value="grpc">grpc</option>
+                    <select name="transmission" id="transmission" >
+                        <option value="tcp">TCP</option>
+                        <option value="ws">WS(Websocket)</option>
+                        <option value="grpc">GRPC</option>
                     </select>
                 </div>
 
-                <div id="idsecurity" onchange="protocolDetails()">
+                <div id="NetWorks" style="display: none;">
+                    <label for="NetWork">Network</label>
+                    <select name="network" id="network" >
+                        <option value="tcpudp">TCP+UDP</option>
+                        <option value="tcpS">TCP</option>
+                        <option value="udpS">UDP</option>
+                    </select>
+                    </div>
+
+                <div id="idsecurity">
                     <label for="security">Security</label>
-                    <select name="security" onchange="protocolDetails()">
+                    <select name="security" >
                         <option value="none">none</option>
-                        <option value="tls" id="tls">tls</option>
-                        <option value="xtls" id="xtls">xtls</option>
-                        <option value="reality" id="reality">reality</option>
+                        <option value="tls" id="tls">TLS</option>
+                        <option value="xtls" id="xtls">xTLS</option>
+                        <option value="reality" id="reality">Reality</option>
                     </select>
                 </div>
 
+                <!-- shadowsocks = -->
 
+
+                <!-- shadowsocks = -->
             </form>
 
             <hr style="margin-top: 30px;">
@@ -61,12 +74,13 @@
                     <input type="text" id="inboundname" value="Inbound Name" name="name-field"
                         placeholder="نام اینباند را وارد کنید" onchange="protocolDetails()">
                         <button type="button" id="random" name="random" onclick="randomize ()">Random Name</button>
-                </div>
+                        <button type="button" id="random" name="random" onclick="actualname()" style="background-color: rgb(16, 169, 240);color: rgb(0, 0, 0);">Optimal Name</button>
+                    </div> 
 
                 <div>
                     <label for="number-field">✅ Port </label>
-                    <input type="number" id="port" name="number-field" placeholder="e.g 2053"
-                        onchange="protocolDetails()">
+                    <input type="number" id="port" name="number-field" placeholder="e.g 2053"  onchange="protocolDetails()">
+                        <button type="button" id="randomport" name="port" onclick="randomports()" >Random Port</button>
                 </div>
 
 
@@ -128,8 +142,9 @@
                             placeholder="958omt37wmklYtS-cQHZAEADGMnml7JX6ShYQn364wk">
                     </div>
                 </div>
-                <hr style="margin-top: 10px;">
+                
                 <div id="acceptProxyProtocols">
+                    <hr style="margin-top: 10px;">
 
                     <label class="switch">
                         <input type="checkbox" id="acceptProxyProtocol" onchange="protocolDetails()">
@@ -139,8 +154,9 @@
                     <label for="acceptProxyProtocol" style="display:-webkit-inline-box">AcceptProxyProtocol</label>
 
                 </div>
-                <hr style="margin-top: 10px;">
+                
                 <div id="divheader">
+                    <hr style="margin-top: 10px;">
                     <label for="header">Header Type</label>
                     <select name="header" id="header" onchange="protocolDetails()">
                         <option value="None">None</option>
@@ -181,6 +197,42 @@
 
 
                 </div>
+                <div id="sniffingDiv" onchange="protocolDetails()">
+
+                    <label class="switch">
+                        <input type="checkbox" id="sniffing" onchange="protocolDetails()" checked>
+
+                        <span class="slider round"></span>
+                    </label>
+                    <label for="sniffing" style="display:-webkit-inline-box">Sniffing</label>
+
+                </div>
+
+
+
+
+<div id="SniffingCheckbox" onchange="protocolDetails()" >
+
+
+    <table style="width: 80%; margin-left: auto; margin-right: auto;text-align: center;">
+        <tbody>
+        <tr>
+         <td style="width: 33%;"><input type="checkbox" class="group-checkbox"  name="http" value="http" checked>
+        </td>
+        <td style="width: 33%;"><input type="checkbox" class="group-checkbox"  name="tls" value="tls" checked>
+        </td>
+        <td style="width: 33%;"><input type="checkbox" class="group-checkbox"  name="fakedns" value="fakedns" ></td>
+        </tr>
+        <tr id="trtable">
+            <td style="width: 33%;">HTTP</td>
+        <td style="width: 33%;">TLS</td>
+        <td style="width: 33%;">FakeDNS</td>
+        </tr>
+        </tbody>
+        </table>
+
+                
+            </div>
 
                     <center>
                         <input type="button" value="Copy to Clipboard!" id="sutton" onclick="protocolDetails()">
@@ -197,7 +249,26 @@
         </div>
     </div>
     <script src=" script.js"></script>
+<script>
+    
+        function updateLineNumbers() {
+            var textarea = document.getElementById('final');
+            var lineNumbers = document.querySelector('.line-numbers p');
 
+            // جداکردن متن textarea به خطوط
+            
+            // تنظیم متن ستون عمودی
+            lineNumbers.innerHTML = "";
+            for (var i = 1; i <= 55; i++) {
+                lineNumbers.innerHTML += i + '<br>';
+                
+            }
+            
+        }
+
+        // اجرای ابتدایی
+        updateLineNumbers()
+</script>
 </body>
 
 </html>
