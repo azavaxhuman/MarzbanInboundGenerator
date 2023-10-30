@@ -616,11 +616,11 @@ function BuildTLS(
   } else {
     if (s == 0) {
       var settings = `"grpcSettings": {
-      "serviceName": "${port}+${protocol}",
+      "serviceName": "${port}${protocol}",
             },`
     } else {
       var settings = `"grpcSettings": {
-      "serviceName": "${port}+${protocol}"
+      "serviceName": "${port}${protocol}"
         },`
     }
   }
