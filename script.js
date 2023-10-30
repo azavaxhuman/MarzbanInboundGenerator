@@ -91,7 +91,6 @@ function protocolDetails() {
   }
   const securityMapping = {
     tls: 1,
-    xtls: 2,
     reality: 5,
     none: 0
   }
@@ -216,7 +215,6 @@ function protocolDetails() {
           <select name="security" >
               <option value="none">none</option>
               <option value="tls" id="tls">tls</option>
-              <option value="xtls" id="xtls">xtls</option>
               <option value="reality" id="reality">reality</option>
           </select>
       </div>`;
@@ -256,7 +254,6 @@ function protocolDetails() {
           <select name="security" >
               <option value="none">none</option>
               <option value="tls" id="tls">tls</option>
-              <option value="xtls" id="xtls">xtls</option>
           </select>
       </div>`;
 
@@ -282,7 +279,7 @@ function protocolDetails() {
       // جایگزینی محتوای عنصر با متن جدید
       idsecurity.innerHTML = newText4;
 
-      if (security == 'reality' || security == 'xtls') {
+      if (security == 'reality') {
         security = 'none'
         protocolDetails();
       }
@@ -304,30 +301,6 @@ function protocolDetails() {
       DisplayBlock(TlsForm, '1')
       DisplayBlock(RealityForm, '0')
 
-      BuildTLS(
-        pts,
-        t,
-        s,
-        protocol,
-        transmission,
-        security,
-        name,
-        port,
-        sni,
-        pubkey,
-        pvkey,
-        h,
-        path,
-        fields,
-        acceptProxyProtocol,
-        headerOnOff,
-        sniftext,
-        sniffing
-      )
-    }
-    if (s == 2) {
-      DisplayBlock(TlsForm, '1')
-      DisplayBlock(RealityForm, '0')
       BuildTLS(
         pts,
         t,
