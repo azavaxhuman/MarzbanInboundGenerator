@@ -628,7 +628,7 @@ function BuildTLS(
       var settings = `"wsSettings": {${acceptProxyProtocol} },`
     } else if (h == 1 && headerOnOff == false) {
       var settings = `"wsSettings": {${acceptProxyProtocol}
-      "path": "${path}",
+      "path": "${path}"
     },`
     } else {
       var wshost=document.getElementById('wsheaderfield').value;
