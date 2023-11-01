@@ -13,13 +13,6 @@ function protocolDetails() {
   var idsecurity = document.getElementById("idsecurity");
 
 
-
-  var securitySelect = document.querySelector('select[name="security"]');
-  var shadowNetworks = document.getElementById("shadowNetworks");
-
-
-
-
   function sniffingconfig(config) {
     if (config == true) {
       document.getElementById("sniffingDiv").style.display = "block";
@@ -44,14 +37,12 @@ function protocolDetails() {
 
         }
         if (destOverride == '') {
-          // alert("ddd");
           document.getElementById('sniffing').checked = false;
           checkboxes.forEach(function (checkbox) {
             checkbox.checked = true; // اگر دکمه sniffing فعال شود، تمام چک باکس‌ها را فعال کنید.
           });
           document.getElementById("SniffingCheckbox").style.display = "none";
           sniffing = false;
-          //offsniftext();
 
 
         }
@@ -70,8 +61,8 @@ function protocolDetails() {
   }
   sniftext = `,
   "sniffing": {
-      "enabled": true,
-      "destOverride": [${sniffingconfig(sniffing)}]
+    "enabled": true,
+    "destOverride": [${sniffingconfig(sniffing)}]
   }`;
 
 
@@ -113,6 +104,7 @@ function protocolDetails() {
 
   const button = document.getElementById("random");
 
+  
 
 
   let pubkey = document.getElementById('pubkey').value
@@ -121,64 +113,87 @@ function protocolDetails() {
     .getElementById('sni')
     .value.replace(/(http:\/\/|https:\/\/|\/)/g, '')
 
-  var acceptProxyProtocol = document.getElementById(
-    'acceptProxyProtocol'
-  ).checked;
-  var headerOnOff = document.getElementById('headerOnOff').checked
-  h == 0
-    ? (document.getElementById('headerOnOffDiv').style.display = 'none')
-    : (document.getElementById('headerOnOffDiv').style.display = 'block')
+  var acceptProxyProtocol = document.getElementById('acceptProxyProtocol').checked;
+  var headerOnOff = document.getElementById('headerOnOff').checked;
+  var wsheader=  document.getElementById('wsheader');
+  h == 0 ? (document.getElementById('headerOnOffDiv').style.display = 'none') : (document.getElementById('headerOnOffDiv').style.display = 'block')
+  t == 5 ? (document.getElementById('acceptProxyProtocols').style.display = 'none') : (document.getElementById('acceptProxyProtocols').style.display = 'block')
 
-  t == 5
-    ? (document.getElementById('acceptProxyProtocols').style.display = 'none')
-    : (document.getElementById('acceptProxyProtocols').style.display = 'block')
-  headerOnOff == true
-    ? (document.getElementById('sarbarg').style.display = 'block')
-    : (document.getElementById('sarbarg').style.display = 'none')
-  if (h == 0) {
-    headerOnOff = false
 
-  }
-  else {
+  // headerOnOff == true ? (document.getElementById('sarbarg').style.display = 'block') : ()
 
-    headerOnOff = document.getElementById('headerOnOff').checked;
 
-  }
+
+  
+if (headerOnOff){
+if(t!=2){
+  document.getElementById('sarbarg').style.display = 'block';
+  document.getElementById('wsheader').style.display = 'none'
+}
+else{
+
+  document.getElementById('wsheader').style.display = 'block'
+  document.getElementById('sarbarg').style.display = 'none';
+}
+
+  
+}
+else{
+
+  document.getElementById('wsheader').style.display = 'none'
+  document.getElementById('sarbarg').style.display = 'none';
+
+}
+
+  if (h == 0) { headerOnOff = false }
+  else { headerOnOff = document.getElementById('headerOnOff').checked; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   var userdest = document.getElementById('dest').value;
-
   var dest = userdest.includes(":443") ? userdest : userdest + ":443";
-
   let ServerNames = document.getElementById('ServerNames').value
   let ShortIds = document.getElementById('ShortIds').value
-  let SpiderX = document.getElementById('SpiderX').value
   let PublicKey = document.getElementById('PublicKey').value
   let PrivateKey = document.getElementById('PrivateKey').value
-  // let tls = document.getElementById("tLS");
   let publickeyStatus = document.getElementById('publickeyStatusOnOff').checked
-  publickeyStatus == true
-    ? (document.getElementById('PublicKeyDiv').style.display = 'block')
-    : (document.getElementById('PublicKeyDiv').style.display = 'none')
+  publickeyStatus == true ? (document.getElementById('PublicKeyDiv').style.display = 'block') : (document.getElementById('PublicKeyDiv').style.display = 'none')
   let TlsForm = document.getElementById('Tls')
   let RealityForm = document.getElementById('RealityForm')
   //نمایان شدن یا نشدن بخش هدر تایپ
 
   document.getElementById('protocolDetails').style.display = 'block'
-  document.getElementById('divheader').style.display =
-    t === 5 ? 'none' : 'block';
-  document.getElementById('http_header_Fields').style.display =
-    h === 0 ? 'none' : 'block';
+  document.getElementById('http_header_Fields').style.display = h === 0 ? 'none' : 'block';
+  if (s == 5 || t == 5) {
+    document.getElementById('divheader').style.display = 'none';
 
-
-  if (acceptProxyProtocol) {
-
-    acceptProxyProtocol = `
-          "acceptProxyProtocol": true,`;
 
   }
   else {
 
-    acceptProxyProtocol = '';
+    document.getElementById('divheader').style.display = 'block';
   }
+
+  if (acceptProxyProtocol) {
+
+    acceptProxyProtocol = `
+    "acceptProxyProtocol": true
+    `;
+  }
+  else { acceptProxyProtocol = ''; }
   //نمایان شدن کانفیگ ها در کنار هم
 
   if (p == 9) {
@@ -187,7 +202,6 @@ function protocolDetails() {
     transmissions.style.display = "none";
     var network = document.getElementById("network").value;
     BuildShadow(network, name, port);
-
 
   }
   else {
@@ -206,9 +220,6 @@ function protocolDetails() {
     if (pt == 11 || pt == 15 || pt == 51) {
 
       if (pt == 11) {
-        console.log(pt);
-
-
         // محتوای جدیدی که می‌خواهید جایگزین شود
         var newText1 = `<div id="idsecurity">
           <label for="security">Security</label>
@@ -224,10 +235,8 @@ function protocolDetails() {
         idsecurity.innerHTML = newText1;
         document.querySelector('select[name="security"]').value = security;
 
-
       }
       else if (pt == 15) {
-
 
         // محتوای جدیدی که می‌خواهید جایگزین شود
         var newText2 = `<div id="idsecurity">
@@ -241,13 +250,9 @@ function protocolDetails() {
 
         // جایگزینی محتوای عنصر با متن جدید
         idsecurity.innerHTML = newText2;
-
         document.querySelector('select[name="security"]').value = security;
       }
       else {
-
-
-
         // محتوای جدیدی که می‌خواهید جایگزین شود
         var newText3 = `<div id="idsecurity">
           <label for="security">Security</label>
@@ -266,7 +271,6 @@ function protocolDetails() {
 
     else {
 
-
       // محتوای جدیدی که می‌خواهید جایگزین شود
       var newText4 = `<div id="idsecurity">
       <label for="security">Security</label>
@@ -282,8 +286,8 @@ function protocolDetails() {
       if (security == 'reality') {
         security = 'none'
         protocolDetails();
+        actualname()
       }
-
       document.querySelector('select[name="security"]').value = security;
 
     }
@@ -337,14 +341,9 @@ function protocolDetails() {
         dest,
         ServerNames,
         ShortIds,
-        SpiderX,
         PublicKey,
         PrivateKey,
-        h,
-        path,
-        fields,
         acceptProxyProtocol,
-        headerOnOff,
         publickeyStatus,
         sniftext,
         sniffing
@@ -375,6 +374,7 @@ function protocolDetails() {
       )
     }
   }
+
 }
 
 ////////////////////////////////////////
@@ -387,10 +387,11 @@ const dataCollection = [] // آرایه برای جمع‌آوری اطلاعا�
 
 var fieldCounter = 0 // شمارنده برای ایجاد شناسه‌های یکتا برای ورودی‌ها
 var i = 0
+var j = 0;
 function addFields(event) {
+
   document.getElementById('removeFieldsButton')
   event.preventDefault()
-
   const inputContainer = document.createElement('div')
   inputContainer.className = 'input-container'
 
@@ -409,32 +410,56 @@ function addFields(event) {
   input2.classList.add('field') // اضافه کردن کلا
   const hr1 = document.createElement('hr')
   hr1.id = 'hr1'
-  inputContainer.appendChild(input1)
-  inputContainer.appendChild(input2)
-  inputContainer.appendChild(hr1)
-  targetDiv.appendChild(inputContainer)
+    inputContainer.appendChild(input1)
+    inputContainer.appendChild(input2)
+    inputContainer.appendChild(hr1)
+    targetDiv.appendChild(inputContainer)
+  
 
   fieldCounter++ // افزایش شمارنده برای ایجاد شناسه یونیک
 
   i++
+
+
+
+
+
+  // addButton.addEventListener('click', function () {
+  //   // کدی که می‌خواهید در اتفاق کلیک دکمه انجام دهید
+  //   if (document.getElementById('MainDetails').elements.transmission.value == 'ws') {
+  //    fieldCounter=0;
+  //    i=0;
+  //     protocolDetails();
+  //     // اتفاق‌هایی که برای شرایط خاص انجام می‌شود
+  //   } else {
+  //     fieldCounter=fieldCounter;
+  //     i=i;
+  //   }
+  // });
+
   if (i == fieldCounter && fieldCounter == 0) {
     document.getElementById('removeFieldsButton').style.display = 'none'
+
   } else {
     document.getElementById('removeFieldsButton').style.display = 'block'
   }
-  console.log('########   i   ' + i)
-  console.log('###########  count   ' + fieldCounter)
+
+
+
+
+
+
 }
 
 function removeFields(event) {
   event.preventDefault()
-
+  j--;
   const inputContainers = document.querySelectorAll('.input-container')
   if (inputContainers.length > 0) {
     const lastInputContainer = inputContainers[inputContainers.length - 1]
     targetDiv.removeChild(lastInputContainer)
     fieldCounter-- // کاهش شمارنده به ازای حذف یک جفت فیلد
-    i--
+    i--;
     if (i == fieldCounter && fieldCounter == 0) {
       document.getElementById('removeFieldsButton').style.display = 'none'
     } else {
@@ -451,16 +476,19 @@ function toggleRemoveButtonVisibility() {
     removeButton.style.display = 'block'
   }
 }
+
+
 addButton.addEventListener('click', addFields)
 removeButton.addEventListener('click', removeFields)
+
+
 // هنگامی که اطلاعات وارد شود، اطلاعات به طور مستقیم به آرایه افزوده می‌شوند
 
 /////////////////////////
 
 function DisplayBlock(objectblock, x) {
-  x === '0'
-    ? (objectblock.style.display = 'none')
-    : (objectblock.style.display = 'block')
+  x === '0' ? (objectblock.style.display = 'none') : (objectblock.style.display = 'block')
+
 }
 
 function BuildTLS(
@@ -495,28 +523,38 @@ function BuildTLS(
   var pubkey = pubkey.toString()
   var pvkey = pvkey.toString()
   var h = h.toString()
-  var n = '\n'
+
   var acceptProxyProtocol = acceptProxyProtocol.toString();
+  if (acceptProxyProtocol.length > 0 && h == 1) {
+
+    acceptProxyProtocol = acceptProxyProtocol + ','
+
+  }
+  else if (acceptProxyProtocol.length > 0 && h == 0) {
+    acceptProxyProtocol = acceptProxyProtocol;
+
+  }
   var headerOnOff = headerOnOff
   var fields = fields
   var path = path.toString()
   document.getElementById('final').style.display = 'block'
   var final = document.getElementById('final')
-  var listen = '"listen": "0.0.0.0",'
+
+
   //decryption settings
   var decryptionSettings = '';
   if (pts <= 155) {
     decryptionSettings = `"settings": {
-        "clients": [],
-        "decryption": "none"
-                  },`;
+      "clients": [],
+      "decryption": "none"
+    },`;
 
   }
   else {
 
     decryptionSettings = `"settings": {
-        "clients": []
-                  },`;
+      "clients": []
+    },`;
 
 
   }
@@ -558,134 +596,100 @@ function BuildTLS(
   }
   if (t == 1) {
     if (h == 0 && headerOnOff == false) {
-      var settings = `"tcpSettings": {${acceptProxyProtocol}
-          "header": {
-          "type": "none"
-      }
-    },`
+      var settings = `"tcpSettings": {${acceptProxyProtocol} },`
     } else if (h == 1 && headerOnOff == false) {
       var settings = `"tcpSettings": {${acceptProxyProtocol}
       "header": {
-      "type": "http",
-      "request": {
-      "version": "1.1",
-      "method": "GET",
-      "path": ["${path}"]
-                },
-      "response": {}
-                }
-                },`
+        "type": "http",
+        "request": {
+          "method": "GET",
+          "path": ["${path}"]
+        },
+        "response": {}
+      }
+    },`
     } else {
       var settings = `"tcpSettings": {${acceptProxyProtocol}
       "header": {
         "type": "http",
         "request": {
-          "version": "1.1",
           "method": "GET",
           "path": ["${path}"],
           "headers":{
             "Host": [${justhosts}]
-                    }
-                  },
+          }
+        },
         "response": {}
-                  }
-                  },`
+      }
+    },`
     }
   } else if (t == 2) {
     if (h == 0 && headerOnOff == false) {
-      var settings = `"wsSettings": {${acceptProxyProtocol}
-      "header": {
-      "type": "none"
-                }
-                },`
+      var settings = `"wsSettings": {${acceptProxyProtocol} },`
     } else if (h == 1 && headerOnOff == false) {
       var settings = `"wsSettings": {${acceptProxyProtocol}
-                "path": "${path}",
-                "header": {
-                    "type": "none"
-                }
-                },`
+      "path": "${path}",
+    },`
     } else {
+      var wshost=document.getElementById('wsheaderfield').value;
       var settings = `"wsSettings": {${acceptProxyProtocol}
       "path": "${path}",
       "headers": {
-      "Host": ${justhosts}
-           }
-},`
+        "Host": "${wshost}"
+      }
+    },`
     }
   } else {
     if (s == 0) {
       var settings = `"grpcSettings": {
-      "serviceName": "${port}${protocol}"
-            },`
+        "serviceName": "${port}${protocol}"
+      },`
     } else {
       var settings = `"grpcSettings": {
-      "serviceName": "${port}${protocol}"
-        },`
+        "serviceName": "${port}${protocol}"
+      },`
     }
   }
   if (s == 0) {
     final.value = `{
-      "tag": "${tag}",
-      "listen": "0.0.0.0",
-      "port": ${port},
-      "protocol": "${protocol}",
-      ${decryptionSettings}
-      "streamSettings": {
-      "network": "${transmission}",
-      ${settings}
-      "security": "none"
-                }${sniftext}
-                  }`
+  "tag": "${tag}",
+  "listen": "0.0.0.0",
+  "port": ${port},
+  "protocol": "${protocol}",
+  ${decryptionSettings}
+  "streamSettings": {
+    "network": "${transmission}",
+    ${settings}
+    "security": "none"
+  }${sniftext}
+}`
   }
 
   if (s > 0) {
     final.value =
       `{
-"tag": "` +
-      tag +
-      `",
-"listen": "0.0.0.0",
-"port": ` +
-      port +
-      `,
-"protocol": "` +
-      protocol +
-      `",
-      ${decryptionSettings}
-"streamSettings": {
-"network": "` +
-      transmission +
-      `",
-` +
-      settings +
-      `
-"security": "` +
-      security +
-      `",
-"tlsSettings": {
-      "serverName": "` +
-      sni +
-      `",
+  "tag": "${tag}",
+  "listen": "0.0.0.0",
+  "port": ${port},
+  "protocol": "${protocol}",
+  ${decryptionSettings}
+  "streamSettings": {
+    "network": "${transmission}",
+    ${settings}
+    "security": "${security}",
+    "tlsSettings": {
+      "serverName": "${sni}",
       "certificates": [
         {
-      "ocspStapling": 3600,
-      "certificateFile": "` +
-      pubkey +
-      `",
-      "keyFile": "` +
-      pvkey +
-      `"
+          "ocspStapling": 3600,
+          "certificateFile": "${pubkey}",
+          "keyFile": "${pvkey}"
         }
-                    ],
-      "rejectUnknownSni": false,
-      "allowInsecure": false,
-      "alpn": ["h2", "http/1.1"],
+      ],
       "minVersion": "1.2",
-      "maxVersion": "1.3",
       "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
-}
-}${sniftext}
+    }
+  }${sniftext}
 }`
   }
 }
@@ -697,16 +701,12 @@ function BuildReality(pts, t, s, protocol, transmission,
   dest,
   ServerNames,
   ShortIds,
-  SpiderX,
   PublicKey,
   PrivateKey,
-  h,
-  path,
-  fields,
   acceptProxyProtocol,
-  headerOnOff,
   publickeyStatus,
-  sniftext, sniffing
+  sniftext,
+  sniffing
 ) {
   var pts = pts.toString()
   var t = t.toString()
@@ -729,158 +729,100 @@ function BuildReality(pts, t, s, protocol, transmission,
     }
   }
 
-  // ایجاد یک رشته نهایی با کاما جداکننده
+
   var finalServerNames = ArrayServerNames.join(',')
 
   var ShortIds = ShortIds.toString()
-  var SpiderX = SpiderX.toString()
   var PublicKey = PublicKey.toString()
   var PrivateKey = PrivateKey.toString()
-  var h = h.toString()
   var acceptProxyProtocol = acceptProxyProtocol
   var headerOnOff = headerOnOff
-  var fields = fields
-  var path = path.toString()
   document.getElementById('final').style.display = 'block'
-  var final = document.getElementById('final')
+  var final = document.getElementById('final');
+
+
+
+
   if (publickeyStatus) {
     var Pub = `
-          "publicKey": "${PublicKey}",`
-  } else {
-    Pub = ''
-  }
+      "publicKey": "${PublicKey}",`
+  } else { Pub = '' }
 
-  if (sniffing) {
-    sniftext = sniftext;
 
-  }
-  else {
 
-    sniftext = '';
-  }
 
-  //حالتی که ریکوئست هدر فعال است
-  if (h == 1 && fieldCounter > 0 && headerOnOff) {
-    if (fields.length > 0) {
-      var result = '' // متغیر برای ذخیره نهایی
-      var justhosts = ''
-      for (
-        var k = fields.length + 1 - fields.length - 1;
-        k < fields.length;
-        k += 2
-      ) {
-        var key = fields[k].value
-        var value = fields[k + 1].value
 
-        // اضافه کردن مقدار template به متغیر result
-        result += `"${key}": "${value}"`
-        justhosts += `"${value}"`
-        // اگر نهایت رشته نیست، یک کاما و یک اینتر (یا خط جدید) اضافه کنید
-        if (k < fields.length - 2) {
-          result += ',\n'
-          justhosts += ','
-        }
-      }
-    }
-  }
+  if (sniffing) { sniftext = sniftext; }
+  else { sniftext = ''; }
+
+
+
+
   if (t == 1) {
-    if (h == 0 && headerOnOff == false) {
-      var settings = `"tcpSettings": {${acceptProxyProtocol}
-      "header": {
-      "type": "none"
-  }
-},`
-    } else if (h == 1 && headerOnOff == false) {
-      var settings = `"tcpSettings": {${acceptProxyProtocol}
-      "header": {
-      "type": "http",
-      "request": {
-      "version": "1.1",
-      "method": "GET",
-      "path": ["${path}"]
-                },
-      "response": {}
-                }
-                },`
-    } else {
-      var settings = `"tcpSettings": {${acceptProxyProtocol}
-      "header": {
-        "type": "http",
-        "request": {
-          "version": "1.1",
-          "method": "GET",
-          "path": ["${path}"],
-          "headers":{
-            "Host": [${justhosts}]
-                    }
-                  },
-        "response": {}
-                  }
-                  },`
-    }
+
+    var settings = `"tcpSettings": {${acceptProxyProtocol}},`
+
 
     final.value = `{
-      "tag": "${tag}",
-      "listen": "0.0.0.0",
-      "port": ${port},
-      "protocol": "${protocol}",
-      "settings": {
-        "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "tcp",
-        ${settings}
-        "security": "reality",
-        "realitySettings": {
-          "show": false,
-          "dest": "${dest}",
-          "xver": 0,
-          "serverNames": [
-            ${finalServerNames}
-          ],
-          "privateKey": "${PrivateKey}",${Pub}
-          "spiderX": "${SpiderX}",
-          "shortIds": [
-            "${ShortIds}"
-          ]
-        }
-      }${sniftext}
-    }`;
+  "tag": "${tag}",
+  "listen": "0.0.0.0",
+  "port": ${port},
+  "protocol": "${protocol}",
+  "settings": {
+    "clients": [],
+    "decryption": "none"
+  },
+  "streamSettings": {
+    "network": "tcp",
+    ${settings}
+    "security": "reality",
+    "realitySettings": {
+      "show": false,
+      "dest": "${dest}",
+      "xver": 0,
+      "serverNames": [
+        ${finalServerNames}
+      ],
+      "privateKey": "${PrivateKey}",${Pub}
+      "shortIds": [
+        "${ShortIds}"
+      ]
+    }
+  }${sniftext}
+}`;
 
 
   } else if (t == 5) {
     var settings = `"grpcSettings": {
-      "serviceName": "${port}"
+      "serviceName": "${port}${protocol}"
     },`
 
     final.value = `{
-"tag": "${tag}",
-"listen": "0.0.0.0",
-"port": ${port},
-"protocol": "${protocol}",
-"settings": {
-"clients": [],
-"decryption": "none"
-},
-"streamSettings": {
-"network": "grpc",
-${settings}
-"security": "reality",
-"realitySettings": {
-"show": false,
-"dest": "${dest}",
-"xver": 0,
-"serverNames": [
-${finalServerNames}
-],
-"privateKey": "${PrivateKey}",
-${Pub}
-"spiderX": "${SpiderX}",
-"shortIds": [
-"${ShortIds}"
-]
-}}${sniftext}
+  "tag": "${tag}",
+  "listen": "0.0.0.0",
+  "port": ${port},
+  "protocol": "${protocol}",
+  "settings": {
+    "clients": [],
+    "decryption": "none"
+  },
+  "streamSettings": {
+    "network": "grpc",
+    ${settings}
+    "security": "reality",
+    "realitySettings": {
+      "show": false,
+      "dest": "${dest}",
+      "xver": 0,
+      "serverNames": [
+        ${finalServerNames}
+      ],
+      "privateKey": "${PrivateKey}",${Pub}
+      "shortIds": [
+        "${ShortIds}"
+      ]
+    }
+  }${sniftext}
 }`
   }
 }
@@ -986,14 +928,14 @@ function BuildShadow(network, name, port) {
 
   var Net = networklMapping[network];
   final.value = `{
-    "tag": "${name}",
-    "listen": "0.0.0.0",
-    "port": ${port},
-    "protocol": "shadowsocks",
-    "settings": {
-        "clients": [],
-        "network": "${Net}"
-    }
+"tag": "${name}",
+"listen": "0.0.0.0",
+"port": ${port},
+"protocol": "shadowsocks",
+"settings": {
+"clients": [],
+"network": "${Net}"
+}
 },`;
 
 }
