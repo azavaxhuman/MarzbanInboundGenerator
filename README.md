@@ -29,7 +29,7 @@
 با استفاده از این برگه به راحتی میتونید اینباند های موردنظر خودتون رو تولید کنید و در نهایت Json اونهارو تحویل بگیرید و در پنل هایی مثل مرزبان استفاده کنید.
 کانفیگ هایی که میتونین با استفاده از این اسکریپت بسازین:
 <br>
-<br><div style"direction:ltr">
+
 ✅ Vless-tcp (with Path or header)<br>
 ✅ Vmess-tcp (with Path or header)<br>
 ✅ Trojan-tcp(with Path or header)<br>
@@ -69,7 +69,7 @@ ____________
 ✅Shadowsocks - tcp/udp<br>
 ✅Shadowsocks - tcp<br>
 ✅Shadowsocks - udp<br>
-</div>
+
 __________
 
 
