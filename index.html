@@ -32,12 +32,13 @@
                     <option value="shadowsocks">Shadowsocks</option>
                 </select>
 
-                <div id="transmissions">
+                <div id="transmissions" >
                     <label for="transmission">Transmission</label>
                     <select name="transmission" id="transmission" >
                         <option value="tcp">TCP</option>
                         <option value="ws">WS(Websocket)</option>
                         <option value="grpc">GRPC</option>
+                        <option value="H2" id="H2" style="display: none;">H2</option>
                     </select>
                 </div>
 
@@ -50,7 +51,7 @@
                     </select>
                     </div>
 
-                <div id="idsecurity">
+                <div id="idsecurity" >
                     <label for="security">Security</label>
                     <select name="security" >
                         <option value="none">none</option>
@@ -207,6 +208,7 @@
 
 
                 </div>
+                <hr style="margin-top: 10px;">
                 <div id="sniffingDiv" onchange="protocolDetails()">
 
                     <label class="switch">

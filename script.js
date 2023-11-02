@@ -75,10 +75,12 @@ function protocolDetails() {
   const transsportMapping = {
     tcp: 1,
     ws: 2,
+    H2: 3,
     grpc: 5,
     tcpudp: 7,
     tcpS: 8,
-    udpS: 9
+    udpS: 9,
+
   }
   const securityMapping = {
     tls: 1,
@@ -104,7 +106,7 @@ function protocolDetails() {
 
   const button = document.getElementById("random");
 
-  
+
 
 
   let pubkey = document.getElementById('pubkey').value
@@ -115,50 +117,47 @@ function protocolDetails() {
 
   var acceptProxyProtocol = document.getElementById('acceptProxyProtocol').checked;
   var headerOnOff = document.getElementById('headerOnOff').checked;
-  var wsheader=  document.getElementById('wsheader');
+  var wsheader = document.getElementById('wsheader');
   h == 0 ? (document.getElementById('headerOnOffDiv').style.display = 'none') : (document.getElementById('headerOnOffDiv').style.display = 'block')
-  t == 5 ? (document.getElementById('acceptProxyProtocols').style.display = 'none') : (document.getElementById('acceptProxyProtocols').style.display = 'block')
 
 
-  // headerOnOff == true ? (document.getElementById('sarbarg').style.display = 'block') : ()
+  if (t == 5 || t == 3) {
+
+    document.getElementById('acceptProxyProtocols').style.display = 'none'
+
+  }
+  else {
+
+    document.getElementById('acceptProxyProtocols').style.display = 'block'
+  }
 
 
 
-  
-if (headerOnOff){
-if(t!=2){
-  document.getElementById('sarbarg').style.display = 'block';
-  document.getElementById('wsheader').style.display = 'none'
-}
-else{
 
-  document.getElementById('wsheader').style.display = 'block'
-  document.getElementById('sarbarg').style.display = 'none';
-}
 
-  
-}
-else{
 
-  document.getElementById('wsheader').style.display = 'none'
-  document.getElementById('sarbarg').style.display = 'none';
+  if (headerOnOff) {
+    if (t != 2) {
+      document.getElementById('sarbarg').style.display = 'block';
+      document.getElementById('wsheader').style.display = 'none'
+    }
+    else {
 
-}
+      document.getElementById('wsheader').style.display = 'block'
+      document.getElementById('sarbarg').style.display = 'none';
+    }
+
+
+  }
+  else {
+
+    document.getElementById('wsheader').style.display = 'none'
+    document.getElementById('sarbarg').style.display = 'none';
+
+  }
 
   if (h == 0) { headerOnOff = false }
   else { headerOnOff = document.getElementById('headerOnOff').checked; }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -177,7 +176,7 @@ else{
 
   document.getElementById('protocolDetails').style.display = 'block'
   document.getElementById('http_header_Fields').style.display = h === 0 ? 'none' : 'block';
-  if (s == 5 || t == 5) {
+  if (s == 5 || t == 5 || t == 3) {
     document.getElementById('divheader').style.display = 'none';
 
 
@@ -194,8 +193,50 @@ else{
     `;
   }
   else { acceptProxyProtocol = ''; }
+
+
+
   //نمایان شدن کانفیگ ها در کنار هم
 
+
+  if (p == 1) {
+
+    var vlesstransmissions = `<div id="transmissions" onload="actualname()" >
+  <label for="transmission">Transmission</label>
+  <select name="transmission" id="transmission" >
+      <option value="tcp">TCP</option>
+      <option value="ws">WS(Websocket)</option>
+      <option value="grpc">GRPC</option>
+      <option value="H2" >H2</option>
+  </select>
+</div>`;
+
+
+    transmissions.innerHTML = vlesstransmissions;
+    document.querySelector('select[name="transmission"]').value = transmission;
+
+  }
+  else {
+
+    var othertransmissions = `<div id="transmissions" >
+  <label for="transmission">Transmission</label>
+  <select name="transmission" id="transmission" >
+      <option value="tcp">TCP</option>
+      <option value="ws">WS(Websocket)</option>
+      <option value="grpc">GRPC</option>
+  </select>
+</div>`;
+
+
+    transmissions.innerHTML = othertransmissions;
+
+    if (transmission == 'H2') {
+      transmission = 'tcp'
+      protocolDetails();
+      actualname()
+    }
+    document.querySelector('select[name="transmission"]').value = transmission;
+  }
   if (p == 9) {
     idsecurity.style.display = "none";
     document.getElementById("NetWorks").style.display = "block";
@@ -204,23 +245,18 @@ else{
     BuildShadow(network, name, port);
 
   }
+
+
   else {
     document.getElementById("NetWorks").style.display = "none";
     transmissions.style.display = "block";
     idsecurity.style.display = "block";
 
-    transmission.innerHTML = `<div id="transmissions">
-    <label for="transmission">Transmission</label>
-    <select name="transmission" id="transmission" >
-        <option value="tcp">tcp</option>
-        <option value="ws">ws</option>
-        <option value="grpc">grpc</option>
-    </select>
-</div>`;
-    if (pt == 11 || pt == 15 || pt == 51) {
+
+
+    if (pt == 11 || pt == 15 || pt == 13) {
 
       if (pt == 11) {
-        // محتوای جدیدی که می‌خواهید جایگزین شود
         var newText1 = `<div id="idsecurity">
           <label for="security">Security</label>
           <select name="security" >
@@ -230,7 +266,6 @@ else{
           </select>
       </div>`;
 
-        // جایگزینی محتوای عنصر با متن جدید
 
         idsecurity.innerHTML = newText1;
         document.querySelector('select[name="security"]').value = security;
@@ -238,7 +273,6 @@ else{
       }
       else if (pt == 15) {
 
-        // محتوای جدیدی که می‌خواهید جایگزین شود
         var newText2 = `<div id="idsecurity">
       <label for="security">Security</label>
       <select name="security" >
@@ -248,30 +282,29 @@ else{
       </select>
   </div>`;
 
-        // جایگزینی محتوای عنصر با متن جدید
         idsecurity.innerHTML = newText2;
         document.querySelector('select[name="security"]').value = security;
       }
-      else {
-        // محتوای جدیدی که می‌خواهید جایگزین شود
-        var newText3 = `<div id="idsecurity">
-          <label for="security">Security</label>
-          <select name="security" >
-              <option value="none">none</option>
-              <option value="tls" id="tls">tls</option>
-          </select>
-      </div>`;
+      else if (pt == 13) {
 
-        // جایگزینی محتوای عنصر با متن جدید
-        idsecurity.innerHTML = newText3;
+        var newText4 = `<div id="idsecurity">
+      <label for="security">Security</label>
+      <select name="security" >
+          <option value="reality" id="reality">reality</option>
+      </select>
+  </div>`;
 
+        idsecurity.innerHTML = newText4;
+
+        security = 'reality';
         document.querySelector('select[name="security"]').value = security;
+
       }
+
     }
 
     else {
 
-      // محتوای جدیدی که می‌خواهید جایگزین شود
       var newText4 = `<div id="idsecurity">
       <label for="security">Security</label>
       <select name="security" >
@@ -280,7 +313,6 @@ else{
       </select>
   </div>`;
 
-      // جایگزینی محتوای عنصر با متن جدید
       idsecurity.innerHTML = newText4;
 
       if (security == 'reality') {
@@ -409,33 +441,15 @@ function addFields(event) {
   input2.placeholder = 'فیلد دوم'
   input2.classList.add('field') // اضافه کردن کلا
   const hr1 = document.createElement('hr')
-  hr1.id = 'hr1'
-    inputContainer.appendChild(input1)
-    inputContainer.appendChild(input2)
-    inputContainer.appendChild(hr1)
-    targetDiv.appendChild(inputContainer)
-  
+
+  inputContainer.appendChild(input1)
+  inputContainer.appendChild(input2)
+
+  targetDiv.appendChild(inputContainer)
+
 
   fieldCounter++ // افزایش شمارنده برای ایجاد شناسه یونیک
-
   i++
-
-
-
-
-
-  // addButton.addEventListener('click', function () {
-  //   // کدی که می‌خواهید در اتفاق کلیک دکمه انجام دهید
-  //   if (document.getElementById('MainDetails').elements.transmission.value == 'ws') {
-  //    fieldCounter=0;
-  //    i=0;
-  //     protocolDetails();
-  //     // اتفاق‌هایی که برای شرایط خاص انجام می‌شود
-  //   } else {
-  //     fieldCounter=fieldCounter;
-  //     i=i;
-  //   }
-  // });
 
   if (i == fieldCounter && fieldCounter == 0) {
     document.getElementById('removeFieldsButton').style.display = 'none'
@@ -443,11 +457,6 @@ function addFields(event) {
   } else {
     document.getElementById('removeFieldsButton').style.display = 'block'
   }
-
-
-
-
-
 
 }
 
@@ -631,7 +640,7 @@ function BuildTLS(
       "path": "${path}"
     },`
     } else {
-      var wshost=document.getElementById('wsheaderfield').value;
+      var wshost = document.getElementById('wsheaderfield').value;
       var settings = `"wsSettings": {${acceptProxyProtocol}
       "path": "${path}",
       "headers": {
@@ -823,6 +832,36 @@ function BuildReality(pts, t, s, protocol, transmission,
       ]
     }
   }${sniftext}
+}`;
+  } else if (t == 3) {
+
+    var settings = `"tcpSettings": {${acceptProxyProtocol}},`
+    final.value = `{
+  "tag": "${tag}",
+  "listen": "0.0.0.0",
+  "port": ${port},
+  "protocol": "vless",
+  "settings": {
+    "clients": [],
+    "decryption": "none"
+  },
+  "streamSettings": {
+    "network": "h2",
+    "tcpSettings": {},
+    "security": "reality",
+    "realitySettings": {
+      "show": false,
+      "dest": "${dest}",
+      "xver": 0,
+      "serverNames": [
+        ${finalServerNames}
+      ],
+      "privateKey": "${PrivateKey}",${Pub}
+      "shortIds": [
+        "${ShortIds}"
+      ]
+    }
+  }${sniftext}
 }`
   }
 }
@@ -872,6 +911,11 @@ function actualname() {
   if (protocol == 'shadowsocks') {
     transmission = networklMapping[document.getElementById('network').value];
     security = 'none';
+
+  }
+  if (transmission == 'H2') {
+
+    security = 'Reality';
 
   }
   if (security != 'none') {
