@@ -27,6 +27,50 @@
 ![Screen Shot](/Preview.png)
 
 با استفاده از این برگه به راحتی میتونید اینباند های موردنظر خودتون رو تولید کنید و در نهایت Json اونهارو تحویل بگیرید و در پنل هایی مثل مرزبان استفاده کنید.
+کانفیگ هایی که میتونین با استفاده از این اسکریپت بسازین:
+✅Vless-tcp (with Path or header)
+✅Vmess-tcp (with Path or header)
+✅Trojan-tcp(with Path or header)
+
+____________
+
+✅Vless-ws (with Path or header)
+✅Vmess-ws (with Path or header)
+✅Trojan-ws(with Path or header)
+____________
+
+✅Vless-grpc
+✅Vmess-grpc
+✅Trojan-grpc
+____________
+✅Vless-tcp-TLS (with Path or header)
+✅Vmess-tcp-TLS (with Path or header)
+✅Trojan-tcp-TLS(with Path or header)
+
+____________
+
+✅Vless-ws-TLS (with Path or header)
+✅Vmess-ws-TLS (with Path or header)
+✅Trojan-ws-TLS(with Path or header)
+____________
+
+✅Vless-grpc-TLS
+✅Vmess-grpc-TLS
+✅Trojan-grpc-TLS
+____________
+
+✅Vless -tcp - Reality
+✅Vless -grpc - Reality
+✅Vless -H2 - Reality
+____________
+
+✅Shadowsocks - tcp/udp
+✅Shadowsocks - tcp
+✅Shadowsocks - udp
+
+__________
+
+ستاره فراموش نشه😅❤️
 ## YouTube 
 
 You Can find my Videos on Daily Digital Skills Channel . See [YouTube](https://www.youtube.com/@Dailydigitalskills/) for more information.
