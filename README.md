@@ -29,45 +29,46 @@
 با استفاده از این برگه به راحتی میتونید اینباند های موردنظر خودتون رو تولید کنید و در نهایت Json اونهارو تحویل بگیرید و در پنل هایی مثل مرزبان استفاده کنید.
 کانفیگ هایی که میتونین با استفاده از این اسکریپت بسازین:
 <br>
-✅Vless-tcp (with Path or header)
-✅Vmess-tcp (with Path or header)
-✅Trojan-tcp(with Path or header)
+<br>
+✅Vless-tcp (with Path or header)<br>
+✅Vmess-tcp (with Path or header)<br>
+✅Trojan-tcp(with Path or header)<br>
 
 ____________
 
-✅Vless-ws (with Path or header)
-✅Vmess-ws (with Path or header)
-✅Trojan-ws(with Path or header)
+✅Vless-ws (with Path or header)<br>
+✅Vmess-ws (with Path or header)<br>
+✅Trojan-ws(with Path or header)<br>
 ____________
 
-✅Vless-grpc
-✅Vmess-grpc
-✅Trojan-grpc
+✅Vless-grpc<br>
+✅Vmess-grpc<br>
+✅Trojan-grpc<br>
 ____________
-✅Vless-tcp-TLS (with Path or header)
-✅Vmess-tcp-TLS (with Path or header)
-✅Trojan-tcp-TLS(with Path or header)
+✅Vless-tcp-TLS (with Path or header)<br>
+✅Vmess-tcp-TLS (with Path or header)<br>
+✅Trojan-tcp-TLS(with Path or header)<br>
 
 ____________
 
-✅Vless-ws-TLS (with Path or header)
-✅Vmess-ws-TLS (with Path or header)
-✅Trojan-ws-TLS(with Path or header)
+✅Vless-ws-TLS (with Path or header)<br>
+✅Vmess-ws-TLS (with Path or header)<br>
+✅Trojan-ws-TLS(with Path or header)<br>
 ____________
 
-✅Vless-grpc-TLS
-✅Vmess-grpc-TLS
-✅Trojan-grpc-TLS
+✅Vless-grpc-TLS<br>
+✅Vmess-grpc-TLS<br>
+✅Trojan-grpc-TLS<br>
 ____________
 
-✅Vless -tcp - Reality
-✅Vless -grpc - Reality
-✅Vless -H2 - Reality
+✅Vless -tcp - Reality<br>
+✅Vless -grpc - Reality<br>
+✅Vless -H2 - Reality<br>
 ____________
 
-✅Shadowsocks - tcp/udp
-✅Shadowsocks - tcp
-✅Shadowsocks - udp
+✅Shadowsocks - tcp/udp<br>
+✅Shadowsocks - tcp<br>
+✅Shadowsocks - udp<br>
 
 __________
 
