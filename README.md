@@ -27,8 +27,9 @@
 ![Screen Shot](/Preview.png)
 
 با استفاده از این برگه به راحتی میتونید اینباند های موردنظر خودتون رو تولید کنید و در نهایت Json اونهارو تحویل بگیرید و در پنل هایی مثل مرزبان استفاده کنید.
+## YouTube 
 
-
+You Can find my Videos on Daily Digital Skills Channel . See [YouTube](https://www.youtube.com/@Dailydigitalskills/) for more information.
 ## License
 
 Distributed under the GPL-3.0 License. See [LICENSE](https://github.com/azavaxhuman/MarzbanInboundGenerator/blob/main/LICENSE.md) for more information.
