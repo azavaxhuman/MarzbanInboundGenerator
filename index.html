@@ -116,6 +116,7 @@
                     <div>
                         <label for="ShortIds-field">✅ ShortIds </label>
                         <input type="text" id="ShortIds" name="ShortIds-field" placeholder="e.g 26c9b62c">
+                        <button type="button" id="shortidcopy" name="port" onclick="copyToClipboardshortID()" style="width: 150px;">ShortId command</button>
                     </div>
                     <!-- <div>
                         <label for="SpiderX-field">✅ SpiderX </label>
@@ -135,11 +136,16 @@
 
                         <input type="text" id="PublicKey" name="Public Key-field"
                             placeholder="kMxiGlQa4ubWnhX94SEifF_8CbzeY_kBaLwcMnXw20I">
+                            
                     </div>
                     <div>
                         <label for="Private Key-field">✅ PrivateKey </label>
                         <input type="text" id="PrivateKey" name="Private Key-field"
                             placeholder="958omt37wmklYtS-cQHZAEADGMnml7JX6ShYQn364wk">
+                    </div>
+                    <div>
+                        <button type="button" id="Keycopy" style="width: 220px;" name="port" onclick="copyToClipboardKeys()" >Public & Private Key Command</button>
+
                     </div>
                 </div>
                 
@@ -263,7 +269,30 @@
     </div>
     <script src="script.js"></script>
 <script>
-    
+    function copyToClipboardshortID(){
+        var textToCopy = "openssl rand -hex 8";
+            var tempInput = document.createElement("input");
+            document.body.appendChild(tempInput);
+            tempInput.setAttribute("value", textToCopy);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("متن کپی شد: " + textToCopy);
+
+
+
+    }
+            function copyToClipboardKeys() {
+            var textToCopy = "docker exec marzban-marzban-1 xray x25519";
+            var tempInput = document.createElement("input");
+            document.body.appendChild(tempInput);
+            tempInput.setAttribute("value", textToCopy);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("متن کپی شد: " + textToCopy);
+            
+        }
         function updateLineNumbers() {
             var textarea = document.getElementById('final');
             var lineNumbers = document.querySelector('.line-numbers p');

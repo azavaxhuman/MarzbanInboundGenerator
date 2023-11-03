@@ -218,7 +218,7 @@ textarea {
 
 }
 
-#random {
+#random,#Keycopy,#shortidcopy {
 
     margin-top: 5px;
     border-color: transparent;
