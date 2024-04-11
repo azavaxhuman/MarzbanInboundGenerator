@@ -76,6 +76,7 @@ function protocolDetails() {
     tcp: 1,
     ws: 2,
     H2: 3,
+    QUIC: 4,
     grpc: 5,
     tcpudp: 7,
     tcpS: 8,
@@ -121,7 +122,7 @@ function protocolDetails() {
   h == 0 ? (document.getElementById('headerOnOffDiv').style.display = 'none') : (document.getElementById('headerOnOffDiv').style.display = 'block')
 
 
-  if (t == 5 || t == 3) {
+  if (t == 5 || t == 3 || t == 4) {
 
     document.getElementById('acceptProxyProtocols').style.display = 'none'
 
@@ -176,7 +177,7 @@ function protocolDetails() {
 
   document.getElementById('protocolDetails').style.display = 'block'
   document.getElementById('http_header_Fields').style.display = h === 0 ? 'none' : 'block';
-  if (s == 5 || t == 5 || t == 3) {
+  if (s == 5 || t == 5 || t == 3 || t==4 ) {
     document.getElementById('divheader').style.display = 'none';
 
 
@@ -207,6 +208,7 @@ function protocolDetails() {
       <option value="tcp">TCP</option>
       <option value="ws">WS(Websocket)</option>
       <option value="grpc">GRPC</option>
+      <option value="QUIC">QUIC</option>
       <option value="H2" >H2</option>
   </select>
 </div>`;
@@ -224,6 +226,7 @@ function protocolDetails() {
       <option value="tcp">TCP</option>
       <option value="ws">WS(Websocket)</option>
       <option value="grpc">GRPC</option>
+
   </select>
 </div>`;
 
@@ -254,7 +257,7 @@ function protocolDetails() {
 
 
 
-    if (pt == 11 || pt == 15 || pt == 13) {
+    if (pt == 11 || pt == 15 || pt == 13 || pt == 14 ) {
 
       if (pt == 11) {
         var newText1 = `<div id="idsecurity">
@@ -281,8 +284,20 @@ function protocolDetails() {
           <option value="reality" id="reality">reality</option>
       </select>
   </div>`;
-
+        
         idsecurity.innerHTML = newText2;
+        document.querySelector('select[name="security"]').value = security;
+      }
+      else if (pt == 14) {
+
+        var newText6 = `<div id="idsecurity">
+      <label for="security">Security</label>
+      <select name="security" >
+          <option value="tls" id="tls">tls</option>
+      </select>
+  </div>`;
+        security = 'tls';
+        idsecurity.innerHTML = newText6;
         document.querySelector('select[name="security"]').value = security;
       }
       else if (pt == 13) {
@@ -673,8 +688,54 @@ function BuildTLS(
   }${sniftext}
 }`
   }
+if ( s==1 && t==4 && protocol=="vless") { 
+  final.value = `{
+    "tag": "${tag}",
+    "listen": "0.0.0.0",
+    "port": ${port},
+    "protocol": "${protocol}",
+    "settings": {
+      "clients": [],
+      "decryption": "none",
+      "fallbacks": []
+    }${sniftext}
+    ,
+    "streamSettings": {
+      "network": "quic",
+      "quicSettings": {
+        "header": {
+          "type": "none"
+        },
+        "key": "BIFbn9m9qW",
+        "security": "none"
+      },
+      "security": "tls",
+      "tlsSettings": {
+        "alpn": [
+          "h2",
+          "http/1.1"
+        ],
+        "certificates": [
+          {
+            "certificateFile": "${pubkey}",
+            "keyFile": "${pvkey}",
+            "ocspStapling": 3600
+          }
+        ],
+        "cipherSuites": "",
+        "maxVersion": "1.3",
+        "minVersion": "1.2",
+        "rejectUnknownSni": false,
+        "serverName": "${sni}"
+      }
+    }
+  }`
 
-  if (s > 0) {
+
+
+
+}
+  if (s > 0 && t !=4) {
     final.value =
       `{
   "tag": "${tag}",
