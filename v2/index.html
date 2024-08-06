@@ -410,6 +410,13 @@
               id="sutton"
               onclick="protocolDetails()"
             />
+            <input
+              type="button"
+              value="Download Json File"
+              id="sutton"
+              style="background-color: rgb(34, 34, 34)"
+              onclick="downloadConfig()"
+            />
             <input type="button" value="My YouTube Channel" id="youtube" />
             <input
               type="button"
@@ -464,6 +471,31 @@
 
       // اجرای ابتدایی
       updateLineNumbers();
+      function downloadConfig() {
+        // Get the content of the textarea
+        const content = document.getElementById("final").value;
+
+        // Create a blob with the content
+        const blob = new Blob([content], { type: "application/json" });
+
+        // Create a link element
+        const link = document.createElement("a");
+
+        // Create a URL for the blob and set it as the href of the link
+        link.href = URL.createObjectURL(blob);
+
+        // Set the download attribute with the filename
+        link.download = "config.json";
+
+        // Append the link to the body (it won't be visible)
+        document.body.appendChild(link);
+
+        // Programmatically click the link to trigger the download
+        link.click();
+
+        // Remove the link from the document
+        document.body.removeChild(link);
+      }
     </script>
   </body>
 </html>
