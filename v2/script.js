@@ -502,7 +502,7 @@ function BuildTLS(
 
   //decryption settings
   var decryptionSettings = "";
-  if (pts <= 155) {
+  if (protocol == "vless") {
     decryptionSettings = `"settings": {
       "clients": [],
       "decryption": "none"
