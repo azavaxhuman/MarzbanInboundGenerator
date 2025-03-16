@@ -106,7 +106,7 @@
           </div>
 
           <div>
-            <label for="number-field">✅ Port </label>
+            <label for="number-field">✅ Port</label>
             <input
               type="number"
               id="port"
@@ -126,7 +126,7 @@
 
           <div id="Tls" style="display: none" onchange="protocolDetails()">
             <div>
-              <label for="TLS-field">✅ SNI </label>
+              <label for="TLS-field">✅ SNI</label>
               <input
                 type="text"
                 id="sni"
@@ -136,7 +136,7 @@
               />
             </div>
             <div>
-              <label for="pub-field">✅ Public Key </label>
+              <label for="pub-field">✅ Public Key</label>
               <input
                 type="text"
                 id="pubkey"
@@ -145,7 +145,7 @@
               />
             </div>
             <div>
-              <label for="pv-field">✅ Private Key </label>
+              <label for="pv-field">✅ Private Key</label>
               <input
                 type="text"
                 id="pvkey"
@@ -161,7 +161,7 @@
             onchange="protocolDetails()"
           >
             <div>
-              <label for="TLS-field">✅ dest </label>
+              <label for="TLS-field">✅ dest</label>
               <input
                 type="text"
                 id="dest"
@@ -170,7 +170,7 @@
               />
             </div>
             <div>
-              <label for="ServerNames-field">✅ ServerNames </label>
+              <label for="ServerNames-field">✅ ServerNames</label>
               <input
                 type="text"
                 id="ServerNames"
@@ -179,7 +179,7 @@
               />
             </div>
             <div>
-              <label for="ShortIds-field">✅ ShortIds </label>
+              <label for="ShortIds-field">✅ ShortIds</label>
               <input
                 type="text"
                 id="ShortIds"
@@ -201,7 +201,7 @@
                         <input value="/" type="text" id="SpiderX" name="SpiderX-field" placeholder="/">
                     </div> -->
             <div id="publickeyStatus">
-              <label for="Public Key-field">✅ PublicKey </label>
+              <label for="Public Key-field">✅ PublicKey</label>
               <label class="switch">
                 <input
                   type="checkbox"
@@ -211,9 +211,9 @@
 
                 <span class="slider round"></span>
               </label>
-              <label for="publickeyStatus" style="display: -webkit-inline-box"
-                >I Have PublicKey!</label
-              >
+              <label for="publickeyStatus" style="display: -webkit-inline-box">
+                I Have PublicKey!
+              </label>
             </div>
             <div id="PublicKeyDiv" style="display: none">
               <input
@@ -224,7 +224,7 @@
               />
             </div>
             <div>
-              <label for="Private Key-field">✅ PrivateKey </label>
+              <label for="Private Key-field">✅ PrivateKey</label>
               <input
                 type="text"
                 id="PrivateKey"
@@ -257,9 +257,12 @@
 
               <span class="slider round"></span>
             </label>
-            <label for="acceptProxyProtocol" style="display: -webkit-inline-box"
-              >AcceptProxyProtocol</label
+            <label
+              for="acceptProxyProtocol"
+              style="display: -webkit-inline-box"
             >
+              AcceptProxyProtocol
+            </label>
           </div>
 
           <div id="divheader">
@@ -291,9 +294,9 @@
                   />
                   <span class="slider round"></span>
                 </label>
-                <label for="headeron-field" style="display: -webkit-inline-box"
-                  >Request Header</label
-                >
+                <label for="headeron-field" style="display: -webkit-inline-box">
+                  Request Header
+                </label>
               </div>
               <div id="sarbarg">
                 <center onclick="protocolDetails()">
@@ -341,9 +344,9 @@
 
               <span class="slider round"></span>
             </label>
-            <label for="sniffing" style="display: -webkit-inline-box"
-              >Sniffing</label
-            >
+            <label for="sniffing" style="display: -webkit-inline-box">
+              Sniffing
+            </label>
           </div>
 
           <div id="SniffingCheckbox" onchange="protocolDetails()">
@@ -435,7 +438,46 @@
       </div>
     </div>
     <script src="script.js"></script>
+    <!-- Modal Popup -->
+    <div id="updateModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>New Update !</h2>
+        <p>نسخه ی جدیدی از این ابزار در دسترس است</p>
+        <a
+          href="https://azavaxhuman.github.io/DDS-Xray-Inbound-Generator/"
+          target="_blank"
+          class="update-link"
+        >
+          Go to new version !
+        </a>
+      </div>
+    </div>
     <script>
+      // Get the modal
+      var modal = document.getElementById("updateModal");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the page loads, show the modal
+      window.onload = function () {
+        modal.style.display = "block";
+        protocolDetails(); // Keep your original onload function
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
       function copyToClipboardshortID() {
         var textToCopy = "openssl rand -hex 8";
         var tempInput = document.createElement("input");
